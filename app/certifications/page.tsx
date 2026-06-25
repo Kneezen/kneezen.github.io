@@ -44,6 +44,24 @@ const CERTIFICATIONS = [
     content: 'Completed advanced architectural training in designing and deploying autonomous AI agents. Expertise in integrating large language models with tool-use capabilities, orchestrating multi-agent systems, and building robust, production-ready AI frameworks capable of executing complex, multi-step reasoning workflows independently.',
     metrics: ['Autonomous Agents', 'LLM Orchestration', 'Multi-Agent Systems', 'Tool Integration'],
     image: '/ibm_ai_agent.png',
+  },
+  {
+    tag: 'IBM SKILLSBUILD // WEB DEVELOPMENT FUNDAMENTALS',
+    content: 'Earned professional certification in core web development principles through IBM\'s SkillsBuild platform. Comprehensive mastery of HTML5, CSS3, and JavaScript fundamentals, along with responsive design methodologies, accessibility standards, and modern front-end development workflows essential for building production-grade web applications.',
+    metrics: ['HTML5 & CSS3', 'JavaScript', 'Responsive Design', 'Front-End Architecture'],
+    image: '/Screenshot 2026-06-25 162819.png',
+  },
+  {
+    tag: 'IBM SKILLSBUILD // ARTIFICIAL INTELLIGENCE FUNDAMENTALS',
+    content: 'Completed foundational certification in artificial intelligence through IBM\'s enterprise learning ecosystem. Deep understanding of core AI concepts including machine learning paradigms, neural network architectures, natural language processing pipelines, and the ethical frameworks governing responsible AI deployment across industry verticals.',
+    metrics: ['Machine Learning', 'Neural Networks', 'NLP Pipelines', 'AI Ethics'],
+    image: '/Screenshot 2026-06-25 162838.png',
+  },
+  {
+    tag: 'LINKEDIN LEARNING // WHAT IS GENERATIVE AI?',
+    content: 'Advanced professional credentialing in the foundational principles and enterprise applications of generative artificial intelligence. Mastery of large language model architectures, diffusion-based generation systems, prompt engineering methodologies, and the strategic frameworks for evaluating and deploying generative AI solutions within professional workflows.',
+    metrics: ['Generative AI', 'LLM Architecture', 'Prompt Engineering', 'AI Strategy'],
+    image: '/Screenshot 2026-06-25 162755.png',
   }
 ];
 
@@ -122,7 +140,7 @@ export default function CertificationsPage() {
 
           {/* Render Certifications Array */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            {CERTIFICATIONS.map((cert, idx) => (
+            {CERTIFICATIONS.slice(0, -1).map((cert, idx) => (
               <ScrollReveal key={idx} delay={idx * 150} className="h-full">
                 <AnimatedBorder delay={400 + idx * 250} accentColor={ACCENT}>
                   <div className="backdrop-blur-md bg-zinc-950/40 p-10 md:p-14 lg:p-16 space-y-8 h-full">
@@ -169,6 +187,60 @@ export default function CertificationsPage() {
               </ScrollReveal>
             ))}
           </div>
+
+          {/* Centered Last Certification */}
+          {(() => {
+            const cert = CERTIFICATIONS[CERTIFICATIONS.length - 1];
+            const idx = CERTIFICATIONS.length - 1;
+            return (
+              <div className="flex justify-center -mt-14">
+                <div className="w-full md:w-1/2">
+                  <ScrollReveal delay={idx * 150} className="h-full">
+                    <AnimatedBorder delay={400 + idx * 250} accentColor={ACCENT}>
+                      <div className="backdrop-blur-md bg-zinc-950/40 p-10 md:p-14 lg:p-16 space-y-8 h-full">
+                        <div className="flex items-center gap-4">
+                          <div className="w-3 h-3 rounded-full shrink-0" style={{ backgroundColor: ACCENT }} />
+                          <span className="font-mono text-xl md:text-2xl lg:text-3xl tracking-[0.08em] font-bold uppercase leading-tight" style={{ color: ACCENT }}>
+                            {cert.tag}
+                          </span>
+                        </div>
+                        <div className="h-px w-full" style={{ backgroundColor: `${ACCENT}10` }} />
+
+                        <p className="text-base md:text-lg lg:text-xl text-neutral-300 leading-[1.9] font-sans tracking-[0.01em]">
+                          {cert.content}
+                        </p>
+
+                        {cert.image && (
+                          <div className="pt-6 pb-2">
+                            <div className="relative w-full overflow-hidden border border-white/10 shadow-2xl group">
+                              <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 pointer-events-none" />
+                              <img 
+                                src={cert.image} 
+                                alt={`${cert.tag} Certificate`}
+                                className="w-full h-auto object-contain img-rendering-crisp transition-transform duration-700 group-hover:scale-[1.02]"
+                              />
+                            </div>
+                          </div>
+                        )}
+
+                        <div className="flex flex-wrap gap-3 pt-4">
+                          {cert.metrics.map((tag, i) => (
+                            <span
+                              key={i}
+                              className="font-mono text-xs font-semibold tracking-wide uppercase px-3 py-1.5 hover:bg-white/5 transition-colors duration-500 cursor-default"
+                              style={{ color: `${ACCENT}99`, border: `1px solid ${ACCENT}25` }}
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </AnimatedBorder>
+                  </ScrollReveal>
+                </div>
+              </div>
+            );
+          })()}
 
           {/* Signature Divider */}
           <ScrollReveal delay={200}>
