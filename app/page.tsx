@@ -63,16 +63,16 @@ export default function HomePage() {
       `}</style>
 
       {/* FULL-SCREEN AMBIENT BACKGROUND LAYER */}
-      <div 
-        className="fixed inset-0 pointer-events-none z-0 flex items-center justify-center overflow-hidden opacity-20 mix-blend-screen select-none" 
-        style={{ 
-          maskImage: 'radial-gradient(circle at center, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 80%)', 
-          WebkitMaskImage: 'radial-gradient(circle at center, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 80%)' 
+      <div
+        className="fixed inset-0 pointer-events-none z-0 flex items-center justify-center overflow-hidden opacity-20 mix-blend-screen select-none"
+        style={{
+          maskImage: 'radial-gradient(circle at center, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 80%)',
+          WebkitMaskImage: 'radial-gradient(circle at center, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 80%)'
         }}
       >
-        <img 
-          src="/pacto-visual-cWOzOnSoh6Q-unsplash.jpg" 
-          alt="Ambient Background" 
+        <img
+          src="/pacto-visual-cWOzOnSoh6Q-unsplash.jpg"
+          alt="Ambient Background"
           className="w-full h-full object-cover object-center img-rendering-crisp"
         />
       </div>
@@ -126,22 +126,22 @@ export default function HomePage() {
               className="group relative p-10 md:p-14 lg:p-16 flex flex-col justify-between transition-all duration-700 hover:bg-white/[0.015] cursor-pointer overflow-hidden min-h-[320px]"
             >
               {/* Layer 1: Premium Ambient Radial Bloom */}
-              <div 
+              <div
                 className="absolute inset-0 opacity-0 transition-opacity duration-1000 group-hover:opacity-100 pointer-events-none"
                 style={{ background: 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.05) 0%, transparent 80%)' }}
               />
               {/* Layer 2: Top-Edge Highlight Line */}
-              <div 
+              <div
                 className="absolute top-0 left-0 right-0 h-px opacity-0 transition-opacity duration-700 group-hover:opacity-60 pointer-events-none"
                 style={{ background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%)' }}
               />
-              
+
               <div className="relative z-10 flex flex-col h-full w-full">
                 <div className="flex justify-between items-center w-full mb-10">
                   <span className="font-mono text-xs md:text-sm text-neutral-400 font-medium tracking-widest uppercase">{pillar.tag}</span>
                   <span className="text-neutral-600 opacity-0 group-hover:opacity-100 group-hover:text-white group-hover:translate-x-1.5 transition-all duration-500 text-sm">→</span>
                 </div>
-                
+
                 <div className="space-y-5 flex-grow">
                   <h3 className="text-2xl md:text-3xl font-semibold tracking-[-0.02em] text-white group-hover:text-zinc-200 transition-colors duration-500">
                     {pillar.title}

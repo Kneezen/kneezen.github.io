@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import AnimatedBorder from '../components/AnimatedBorder';
 import ScrollReveal from '../components/ScrollReveal';
+import ImageLightbox from '../components/ImageLightbox';
 
 const ACCENT = '#FFB300';
 
@@ -161,11 +162,13 @@ export default function CertificationsPage() {
                       <div className="pt-6 pb-2">
                         <div className="relative w-full overflow-hidden border border-white/10 shadow-2xl group">
                           <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 pointer-events-none" />
-                          <img 
-                            src={cert.image} 
-                            alt={`${cert.tag} Certificate`}
-                            className="w-full h-auto object-contain img-rendering-crisp transition-transform duration-700 group-hover:scale-[1.02]"
-                          />
+                          <ImageLightbox src={cert.image} alt={`${cert.tag} Certificate`}>
+                            <img 
+                              src={cert.image} 
+                              alt={`${cert.tag} Certificate`}
+                              className="w-full h-auto object-contain img-rendering-crisp transition-transform duration-700 group-hover:scale-[1.02]"
+                            />
+                          </ImageLightbox>
                         </div>
                       </div>
                     )}
@@ -214,11 +217,13 @@ export default function CertificationsPage() {
                           <div className="pt-6 pb-2">
                             <div className="relative w-full overflow-hidden border border-white/10 shadow-2xl group">
                               <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 pointer-events-none" />
-                              <img 
-                                src={cert.image} 
-                                alt={`${cert.tag} Certificate`}
-                                className="w-full h-auto object-contain img-rendering-crisp transition-transform duration-700 group-hover:scale-[1.02]"
-                              />
+                              <ImageLightbox src={cert.image} alt={`${cert.tag} Certificate`}>
+                                <img 
+                                  src={cert.image} 
+                                  alt={`${cert.tag} Certificate`}
+                                  className="w-full h-auto object-contain img-rendering-crisp transition-transform duration-700 group-hover:scale-[1.02]"
+                                />
+                              </ImageLightbox>
                             </div>
                           </div>
                         )}

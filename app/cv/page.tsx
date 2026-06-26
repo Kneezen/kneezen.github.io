@@ -31,9 +31,9 @@ const CV_SECTIONS = [
   {
     category: 'PROJECTS & MODULES',
     entries: [
-      { label: 'Race Engine', value: 'Linguistic Race Engine — Gamified Syntax & Vocabulary Module' },
-      { label: 'Storytelling', value: <span className="inline-flex items-center gap-3 flex-wrap">Backpack Mysteries — 5E Model Narrative Framework <a href="https://gamma.app/docs/Backpack-Mysteries-Telling-What-Happened-s6pnsanpxvctzom" target="_blank" rel="noopener noreferrer" className="font-mono text-xs font-semibold tracking-wide px-3 py-1.5 border transition-colors hover:bg-white hover:text-black shrink-0" style={{ borderColor: 'rgba(255,255,255,0.2)' }}>GAMMA_ENGINE</a></span> as any },
-      { label: 'Suite', value: 'Interactive Engagement Suite — Kahoot, Design-a-Creature, Robot Architecture' },
+      { label: 'Race Engine', value: 'Linguistic Race Engine | Gamified Syntax & Vocabulary Module' },
+      { label: 'Storytelling', value: <span className="inline-flex items-center gap-3 flex-wrap">Backpack Mysteries | 5E Model Narrative Framework <a href="https://gamma.app/docs/Backpack-Mysteries-Telling-What-Happened-s6pnsanpxvctzom" target="_blank" rel="noopener noreferrer" className="font-mono text-xs font-semibold tracking-wide px-3 py-1.5 border transition-colors hover:bg-white hover:text-black shrink-0" style={{ borderColor: 'rgba(255,255,255,0.2)' }}>GAMMA_ENGINE</a></span> as any },
+      { label: 'Suite', value: 'Interactive Engagement Suite | Kahoot, Design-a-Creature, Robot Architecture' },
       { label: 'Grammar', value: <span className="inline-flex items-center gap-3 flex-wrap">Whose Is It? Interactive Grammar Engine <a href="https://sites.google.com/view/possessive-pronouns-clothes/main-page" target="_blank" rel="noopener noreferrer" className="font-mono text-xs font-semibold tracking-wide px-3 py-1.5 border transition-colors hover:bg-white hover:text-black shrink-0" style={{ borderColor: 'rgba(255,255,255,0.2)' }}>LIVE LINK</a></span> as any },
     ],
   },
@@ -50,7 +50,7 @@ const CV_SECTIONS = [
   {
     category: 'METHODOLOGICAL STACK',
     entries: [
-      { label: 'CLT', value: 'Communicative Language Teaching — Meaning-Focused Interaction' },
+      { label: 'CLT', value: 'Communicative Language Teaching | Meaning-Focused Interaction' },
       { label: 'PPP', value: 'Presentation → Practice → Production Pipeline' },
       { label: 'PREPARE', value: 'UNESCO Equitable Lesson Framework & Acoustic Materials' },
       { label: '5E Model', value: 'Engage → Explore → Explain → Elaborate → Evaluate' },

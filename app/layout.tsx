@@ -18,7 +18,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Ozan Özen — AI · Language · Technology",
+  title: "Ozan Özen | AI · Language · Technology",
   description: "English Language Educator, AI Model Trainer, and Tech Journalist bridging the gap between human expression and machine intelligence.",
 };
 

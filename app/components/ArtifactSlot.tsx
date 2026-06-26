@@ -1,3 +1,5 @@
+import ImageLightbox from './ImageLightbox';
+
 interface ArtifactSlotProps {
   label?: string;
   accentColor: string;
@@ -41,7 +43,14 @@ export default function ArtifactSlot({
       {/* Image or Placeholder */}
       <div className="w-full h-80 md:h-[450px] bg-zinc-900/80 flex flex-col items-center justify-center gap-3 text-neutral-600 font-mono relative">
         {imageUrl ? (
-          <img src={`/${imageUrl}`} alt={label} className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-700" />
+          <>
+            <img src={`/${imageUrl}`} alt={label} className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-700" />
+            <div className="absolute inset-0 z-30">
+              <ImageLightbox src={`/${imageUrl}`} alt={label || 'Artifact'}>
+                <div className="w-full h-full" />
+              </ImageLightbox>
+            </div>
+          </>
         ) : (
           <>
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="opacity-30">

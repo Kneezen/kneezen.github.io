@@ -12,22 +12,22 @@ const MANIFESTO = [
   {
     tag: 'MISSION STATEMENT',
     content:
-      'Operating at the precise intersection of human linguistic expression and cognitive computing architectures. Every system I build — whether a lesson plan or a language model training pipeline — is rooted in the same structural principle: decode complexity, encode clarity, and deliver meaning with zero signal loss.',
+      "I work at the intersection of human language and cognitive computing. Whether I'm building a classroom lesson plan or training a large language model, my approach is grounded in the same core principle: decode complexity, encode clarity, and deliver meaning with zero signal loss.",
   },
   {
     tag: 'THE NARRATIVE',
     content:
-      'Structural immersion in language began not in a university lecture hall, but during an intensive, universal English language teaching curriculum throughout high school — a crucible that forged instinct-level grammatical awareness and phonological sensitivity long before formal pedagogy entered the picture. That foundation evolved into a dual-engine path: driving pedagogical innovation in modern classrooms at TED University while simultaneously training next-generation large language models to parse context, nuance, and advanced semantic reasoning at Outlier. The global transit insights gathered from navigating metropolitan systems in Tokyo and Beijing further sharpened a cross-cultural awareness that now informs every teaching framework and AI evaluation rubric I construct.',
+      "My deep dive into language didn't start in a university lecture hall, but during an intensive English teaching curriculum in high school. That early exposure built a strong instinct for grammar and phonology long before I formally studied pedagogy. Today, that foundation drives a dual path: studying and applying modern teaching methodologies at TED University, while simultaneously training large language models to parse context, nuance, and advanced semantic reasoning at Outlier. Navigating daily life in Tokyo and Beijing gave me firsthand insights into cross-cultural communication, a perspective that now informs every teaching framework and AI evaluation rubric I build.",
   },
   {
     tag: 'ADMINISTRATIVE TRAJECTORY',
     content:
-      'An administrative trajectory driven by heavy, systematic reliance on complex lesson-planning architectures. Expertise centers on designing deeply scaffolded educational environments using comprehensive template frameworks to balance cognitive load and maximize target-language output. By merging Vygotskyan social cognitive theories with structural data engineering, language is treated as an active, living operating system.',
+      "An organizational approach driven by a systematic reliance on clear, structured lesson planning. My expertise centers on designing deeply scaffolded educational environments to balance cognitive load and maximize target-language output. By combining Vygotskyan social cognitive theories with structured, data-informed design, I treat language learning as an active, living operating system.",
   },
   {
     tag: 'METHODOLOGICAL STACK',
     content:
-      'The architecture relies on the exact same core principles whether optimizing an LLM or scaffold-teaching a communicative language classroom: clarity of instruction, logical sequencing, and ruthless elimination of ambiguity. This is materialized through a highly defined methodological stack: Communicative Language Teaching (CLT) for authentic interaction, Presentation-Practice-Production (PPP) loops for systematic acquisition, the 5E Instructional Model for narrative-driven engagement, and UNESCO-aligned PREPARE frameworks for generating high-impact acoustic and materials-driven learning assets.',
+      "Whether I'm optimizing an LLM or teaching a communicative language class, I rely on the same core principles: clear instructions, logical sequencing, and the elimination of ambiguity. I put this into practice through a defined methodological stack: Communicative Language Teaching (CLT) for authentic interaction, Presentation-Practice-Production (PPP) loops for systematic acquisition, the 5E Instructional Model for engaging narratives, and UNESCO-aligned PREPARE frameworks for creating accessible and effective learning materials.",
   },
 ];
 

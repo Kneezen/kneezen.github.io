@@ -13,7 +13,7 @@ const METHODOLOGIES = [
   {
     code: 'CLT',
     name: 'Communicative Language Teaching',
-    desc: 'Structuring realistic, high-impact communicative goals that prioritize meaning negotiation over mechanical accuracy. Lessons are built around authentic discourse scenarios — information gaps, role-plays, and opinion exchanges — that force genuine target-language production rather than scripted repetition.',
+    desc: 'Structuring realistic, high-impact communicative goals that prioritize meaning negotiation over mechanical accuracy. Lessons are built around authentic discourse scenarios, such as information gaps, role-plays, and opinion exchanges, that force genuine target-language production rather than scripted repetition.',
   },
   {
     code: 'PPP',

@@ -6,6 +6,7 @@ import Link from 'next/link';
 import AnimatedBorder from '../components/AnimatedBorder';
 import ScrollReveal from '../components/ScrollReveal';
 import ArtifactSlot from '../components/ArtifactSlot';
+import ImageLightbox from '../components/ImageLightbox';
 
 const ACCENT = '#D500F7';
 
@@ -65,7 +66,7 @@ const PROJECTS: Project[] = [
   },
   {
     tag: '"WHOSE IS IT?" INTERACTIVE GRAMMAR ENGINE',
-    content: 'An inductive, inquiry-based grammar portal custom-engineered for 3rd-grade language learners. The platform systematically integrates an ecosystem of digital tools—including Bubbl.us concept mapping, Canva designs, Wordwall modules, StoryJumper digital books, Google Forms evaluation metrics, and Suno.com auditory assets—allowing students to apply, analyze, and evaluate possessive pronoun constructs within an active clothing-themed communicative network.',
+    content: 'An inductive, inquiry-based grammar portal custom-engineered for 3rd-grade language learners. The platform systematically integrates an ecosystem of digital tools, including Bubbl.us concept mapping, Canva designs, Wordwall modules, StoryJumper digital books, Google Forms evaluation metrics, and Suno.com auditory assets, allowing students to apply, analyze, and evaluate possessive pronoun constructs within an active clothing-themed communicative network.',
     metrics: ['Web 2.0 Ecosystem', 'Inquiry-Based Learning', 'Grade 3', 'Digital Orchestration'],
     highResImage: {
       src: '/Web.2.0.png',
@@ -247,13 +248,15 @@ export default function ProjectsPage() {
                               {img.label}
                             </span>
                             {/* High-res container wrapper */}
-                            <div className="relative w-full h-auto overflow-hidden bg-zinc-950/40">
-                              <img 
-                                src={img.src} 
-                                alt={img.alt} 
-                                className="w-full h-auto object-contain rounded-none border border-purple-500/30 shadow-lg img-rendering-crisp" 
-                              />
-                            </div>
+                            <ImageLightbox src={img.src} alt={img.alt}>
+                              <div className="relative w-full h-auto overflow-hidden bg-zinc-950/40">
+                                <img 
+                                  src={img.src} 
+                                  alt={img.alt} 
+                                  className="w-full h-auto object-contain rounded-none border border-purple-500/30 shadow-lg img-rendering-crisp" 
+                                />
+                              </div>
+                            </ImageLightbox>
                           </div>
                         ))}
                       </div>
@@ -269,11 +272,13 @@ export default function ProjectsPage() {
                             >
                               {img.label}
                             </span>
-                            <img 
-                              src={img.src} 
-                              alt={img.alt} 
-                              className="w-full h-auto object-contain img-rendering-crisp border border-emerald-500/20 shadow-lg" 
-                            />
+                            <ImageLightbox src={img.src} alt={img.alt}>
+                              <img 
+                                src={img.src} 
+                                alt={img.alt} 
+                                className="w-full h-auto object-contain img-rendering-crisp border border-emerald-500/20 shadow-lg" 
+                              />
+                            </ImageLightbox>
                           </div>
                         ))}
                       </div>
@@ -281,7 +286,7 @@ export default function ProjectsPage() {
                   ) : project.highResImage ? (
                     <div className="px-10 md:px-14 lg:px-16 pb-10 md:pb-14 lg:pb-16">
                       <div className="relative w-full h-auto overflow-hidden group shadow-lg">
-                        <a href={project.link} target="_blank" rel="noopener noreferrer" className="block relative">
+                        <ImageLightbox src={project.highResImage.src} alt={project.highResImage.alt}>
                           <img 
                             src={project.highResImage.src} 
                             alt={project.highResImage.alt} 
@@ -293,7 +298,7 @@ export default function ProjectsPage() {
                               background: `linear-gradient(180deg, transparent 0%, ${ACCENT}20 50%, transparent 100%)`,
                             }}
                           />
-                        </a>
+                        </ImageLightbox>
                       </div>
                     </div>
                   ) : (

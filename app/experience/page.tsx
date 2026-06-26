@@ -6,6 +6,7 @@ import Link from 'next/link';
 import AnimatedBorder from '../components/AnimatedBorder';
 import ScrollReveal from '../components/ScrollReveal';
 import ArtifactSlot from '../components/ArtifactSlot';
+import ImageLightbox from '../components/ImageLightbox';
 
 const ACCENT = '#00E5FF';
 
@@ -27,7 +28,7 @@ const TIMELINE: TimelineEntry[] = [
     period: '2024 – Present',
     status: 'ACTIVE',
     content:
-      'Evaluate and curate advanced dataset training environments for high-tier large language models operating within the Milky Way and Lightspeed accuracy tracking frameworks. Oversee model accuracy benchmarks, linguistic alignment matrices, metadata validation layers, and conversational reasoning optimization pipelines. Responsible for routing complex multi-turn dialogue evaluations and maintaining sub-1% error tolerance across prompt-response pairs in advanced reasoning tasks.',
+      'Evaluate and curate dataset training environments for high-tier large language models within the Milky Way and Lightspeed tracking frameworks. Monitor model accuracy benchmarks, linguistic alignment, metadata validation, and conversational reasoning pipelines. Responsible for routing complex multi-turn dialogue evaluations and maintaining strict error tolerance across prompt-response pairs in advanced reasoning tasks.',
     metrics: ['Milky Way Framework', 'Lightspeed Accuracy', 'Multi-Turn Dialogue', 'Sub-1% Error Tolerance'],
     dualImages: [
       {
@@ -47,7 +48,7 @@ const TIMELINE: TimelineEntry[] = [
     period: '2024 – 2026',
     status: 'COMPLETED',
     content:
-      'Translate highly technical hardware innovations, processing breakthroughs, and digital ecosystem trends into sharp, consumer-facing technical narratives. Conduct hands-on RTX graphics hardware testing and benchmarking, produce in-depth Fedora Linux kernel optimization guides, and analyze next-generation processing stacks including AMD Zen architectures and Intel hybrid core topologies. Maintain editorial accuracy across GPU tier-list evaluations and thermal performance deep-dives.',
+      'Translate hardware innovations, processing breakthroughs, and digital ecosystem trends into sharp, accessible technical narratives for consumers. Conduct hands-on RTX graphics hardware testing and benchmarking, write in-depth Fedora Linux kernel optimization guides, and analyze next-generation processing stacks, including AMD Zen architectures and Intel hybrid core topologies. Ensure editorial accuracy across GPU tier-lists and thermal performance deep-dives.',
     metrics: ['RTX Benchmarking', 'Linux Kernel Guides', 'GPU Analytics', 'Thermal Analysis'],
     verticalStack: [
       {
@@ -69,7 +70,7 @@ const TIMELINE: TimelineEntry[] = [
     period: '2024 – Present',
     status: 'ACTIVE',
     content:
-      'Managed rigorous administrative and operational compliance for international English-language examinations under British Council standardized protocols. Ensured adherence to strict regulatory frameworks covering candidate identity verification, test-center environmental controls, timing synchronization, and post-examination materials chain-of-custody procedures.',
+      'Managed operational compliance and security for international English-language examinations under British Council standardized protocols. Ensured strict adherence to regulatory frameworks, covering candidate identity verification, test-center conditions, synchronized timing, and the secure handling of post-examination materials.',
     metrics: ['British Council Protocol', 'Chain-of-Custody', 'Compliance Audit', 'Timing Sync'],
     verticalStack: [
       {
@@ -224,11 +225,13 @@ export default function ExperiencePage() {
                                 {img.label}
                               </span>
                               <div className="relative w-full h-auto overflow-hidden bg-zinc-950/40">
-                                <img 
-                                  src={img.src} 
-                                  alt={img.alt} 
-                                  className="w-full h-auto object-contain img-rendering-crisp border border-cyan-500/20 shadow-md" 
-                                />
+                                <ImageLightbox src={img.src} alt={img.alt}>
+                                  <img 
+                                    src={img.src} 
+                                    alt={img.alt} 
+                                    className="w-full h-auto object-contain img-rendering-crisp border border-cyan-500/20 shadow-md" 
+                                  />
+                                </ImageLightbox>
                               </div>
                             </div>
                           ))}
@@ -244,11 +247,13 @@ export default function ExperiencePage() {
                             {entry.singleImage.label}
                           </span>
                           <div className="relative w-full h-auto overflow-hidden bg-zinc-950/40">
-                            <img 
-                              src={entry.singleImage.src} 
-                              alt={entry.singleImage.alt} 
-                              className="w-full h-auto object-contain img-rendering-crisp border border-cyan-500/10" 
-                            />
+                            <ImageLightbox src={entry.singleImage.src} alt={entry.singleImage.alt}>
+                              <img 
+                                src={entry.singleImage.src} 
+                                alt={entry.singleImage.alt} 
+                                className="w-full h-auto object-contain img-rendering-crisp border border-cyan-500/10" 
+                              />
+                            </ImageLightbox>
                           </div>
                         </div>
                       </div>
@@ -264,11 +269,13 @@ export default function ExperiencePage() {
                                 {img.label}
                               </span>
                               <div className="relative w-full h-auto overflow-hidden bg-zinc-950/40">
-                                <img 
-                                  src={img.src} 
-                                  alt={img.alt} 
-                                  className={img.className || "w-full h-auto object-contain img-rendering-crisp border border-cyan-500/20"} 
-                                />
+                                <ImageLightbox src={img.src} alt={img.alt}>
+                                  <img 
+                                    src={img.src} 
+                                    alt={img.alt} 
+                                    className={img.className || "w-full h-auto object-contain img-rendering-crisp border border-cyan-500/20"} 
+                                  />
+                                </ImageLightbox>
                               </div>
                             </div>
                           ))}

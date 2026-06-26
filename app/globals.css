@@ -97,3 +97,43 @@ video[src*=".mp4"] {
   object-fit: cover !important;
   transform: none !important;
 }
+
+/* ═══════════════════════════════════════════════ */
+/* IMAGE LIGHTBOX SYSTEM                          */
+/* ═══════════════════════════════════════════════ */
+
+@keyframes lightboxIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes lightboxOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+@keyframes lightboxImageIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+@keyframes lightboxImageOut {
+  from {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.92) translateY(12px);
+  }
+}
+
+.animate-lightbox-in { animation: lightboxIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-lightbox-out { animation: lightboxOut 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-fade-in { animation: lightboxIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-fade-out { animation: lightboxOut 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-image-in { animation: lightboxImageIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-image-out { animation: lightboxImageOut 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
