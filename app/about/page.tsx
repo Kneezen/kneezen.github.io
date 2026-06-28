@@ -58,13 +58,13 @@ export default function AboutPage() {
         muted
         playsInline
         className="fixed top-0 left-0 w-screen h-screen object-cover pointer-events-none opacity-30"
-        style={{ zIndex: -20 }}
+        style={{ zIndex: 0 }}
         src="/3129595-uhd_3840_2160_30fps.mp4"
       />
 
       {/* Ambient page glow */}
       <div
-        className="fixed top-0 left-1/2 -translate-x-1/2 w-[1400px] h-[800px] pointer-events-none glow-pulse"
+        className="fixed top-0 left-1/2 -translate-x-1/2 w-[1400px] h-[800px] pointer-events-none glow-pulse mix-blend-screen"
         style={{ background: `radial-gradient(ellipse at 50% 0%, ${ACCENT}09 0%, transparent 70%)` }}
       />
 
@@ -133,7 +133,10 @@ export default function AboutPage() {
                   </span>
                 </div>
                 <div className="h-px w-full" style={{ backgroundColor: `${ACCENT}10` }} />
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 w-full">
+                <p className="text-base md:text-lg text-neutral-300 leading-[1.7] font-sans tracking-[0.01em] pb-2">
+                  I'm always open to discussing new ideas, innovative projects, or future collaborations. Whether you want to talk about AI language models, modern pedagogy, or simply say hello, feel free to reach out via email or connect with me on LinkedIn.
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
                   <a
                     href="https://www.linkedin.com/in/ozan-özen-6a46a82a3"
                     target="_blank"
@@ -167,6 +170,32 @@ export default function AboutPage() {
                   >
                     EMAIL // DIRECT CHANNEL
                   </a>
+                </div>
+              </div>
+            </AnimatedBorder>
+          </ScrollReveal>
+
+          {/* Location Block */}
+          <ScrollReveal delay={200}>
+            <AnimatedBorder delay={900} accentColor={ACCENT}>
+              <div className="backdrop-blur-md bg-zinc-950/40 p-10 md:p-14 lg:p-16 space-y-6">
+                <div className="flex items-center gap-4">
+                  <div className="w-3 h-3 rounded-full shrink-0" style={{ backgroundColor: ACCENT }} />
+                  <span className="font-mono text-xl md:text-2xl lg:text-3xl tracking-[0.08em] font-bold uppercase leading-tight" style={{ color: ACCENT }}>
+                    LOCATION
+                  </span>
+                </div>
+                <div className="h-px w-full" style={{ backgroundColor: `${ACCENT}10` }} />
+                <div className="w-full h-64 md:h-80 overflow-hidden" style={{ border: `1px solid ${ACCENT}40` }}>
+                  <iframe 
+                    src="https://maps.google.com/maps?q=Ankara&t=&z=11&ie=UTF8&iwloc=&output=embed" 
+                    width="100%" 
+                    height="100%" 
+                    style={{ border: 0, filter: 'invert(100%) hue-rotate(180deg) contrast(90%)' }} 
+                    allowFullScreen={false} 
+                    loading="lazy" 
+                    referrerPolicy="no-referrer-when-downgrade"
+                  />
                 </div>
               </div>
             </AnimatedBorder>

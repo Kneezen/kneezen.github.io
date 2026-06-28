@@ -1,8 +1,17 @@
 @import "tailwindcss";
 
+/* ═══════════════════════════════════════════════ */
+/* SINGLE-PAGE SMOOTH SCROLL SYSTEM               */
+/* ═══════════════════════════════════════════════ */
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 64px; /* offset for sticky nav height */
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #050505;
+  --foreground: #ffffff;
 }
 
 @theme inline {
@@ -11,13 +20,6 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-inter: var(--font-inter);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
@@ -137,3 +139,27 @@ video[src*=".mp4"] {
 .animate-fade-out { animation: lightboxOut 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 .animate-image-in { animation: lightboxImageIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 .animate-image-out { animation: lightboxImageOut 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+/* ═══════════════════════════════════════════════ */
+/* CUSTOM SCROLLBAR                               */
+/* ═══════════════════════════════════════════════ */
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050505;
+  border-left: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid #050505;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}

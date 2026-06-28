@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useCallback, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 
 interface ImageLightboxProps {
   src: string;
@@ -44,11 +45,14 @@ export default function ImageLightbox({ src, alt, className, children }: ImageLi
   }, []);
 
   const handleOverlayClick = useCallback((e: React.MouseEvent) => {
-    // Only close if clicking the overlay backdrop, not the image
-    if (e.target === containerRef.current) {
+    // Clicks on the image are stopped from propagating by handleImageClick.
+    // So any click reaching here is on the background.
+    if (isZoomed) {
+      setIsZoomed(false);
+    } else {
       handleClose();
     }
-  }, [handleClose]);
+  }, [isZoomed, handleClose]);
 
   const handleImageClick = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
@@ -72,14 +76,32 @@ export default function ImageLightbox({ src, alt, className, children }: ImageLi
     setTransformOrigin(`${x}% ${y}%`);
   }, [isZoomed]);
 
-  // Escape key handler
+  // Escape key handler & Body scroll lock
   useEffect(() => {
     if (!isOpen) return;
+
+    // Calculate scrollbar width to prevent layout shift
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+
+    // Lock body scroll and add padding
+    const originalOverflow = document.body.style.overflow;
+    const originalPaddingRight = document.body.style.paddingRight;
+    
+    document.body.style.overflow = 'hidden';
+    if (scrollbarWidth > 0) {
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+    }
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') handleClose();
     };
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      document.body.style.paddingRight = originalPaddingRight;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
   }, [isOpen, handleClose]);
 
   return (
@@ -114,7 +136,7 @@ export default function ImageLightbox({ src, alt, className, children }: ImageLi
       </div>
 
       {/* Fullscreen lightbox overlay */}
-      {isOpen && (
+      {isOpen && typeof document !== 'undefined' && createPortal(
         <div
           ref={containerRef}
           className={`fixed inset-0 z-[9999] flex items-center justify-center
@@ -145,7 +167,7 @@ export default function ImageLightbox({ src, alt, className, children }: ImageLi
 
           {/* Image container */}
           <div
-            className={`relative max-w-[92vw] max-h-[88vh] overflow-hidden
+            className={`relative overflow-hidden flex justify-center items-center
               ${isClosing ? 'animate-image-out' : 'animate-image-in'}
               ${isZoomed ? '' : 'shadow-2xl shadow-black/50'}`}
             onClick={handleImageClick}
@@ -155,9 +177,8 @@ export default function ImageLightbox({ src, alt, className, children }: ImageLi
               ref={imageRef}
               src={src}
               alt={alt}
-              className="w-full h-full object-contain transition-transform duration-200 ease-out select-none"
+              className="max-w-[92vw] max-h-[88vh] object-contain transition-transform duration-200 ease-out select-none"
               style={{
-                maxHeight: '88vh',
                 transform: isZoomed ? `scale(${ZOOM_LEVEL})` : 'scale(1)',
                 transformOrigin: transformOrigin,
               }}
@@ -174,7 +195,8 @@ export default function ImageLightbox({ src, alt, className, children }: ImageLi
           <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-[10000] font-mono text-[10px] tracking-[0.15em] text-neutral-600 uppercase font-medium">
             {isZoomed ? 'Move cursor to pan // Click to zoom out' : 'Click image to magnify // ESC to close'}
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );

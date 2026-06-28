@@ -93,7 +93,7 @@ export default function CertificationsPage() {
         muted
         playsInline
         className="fixed top-0 left-0 w-screen h-screen object-cover pointer-events-none opacity-30"
-        style={{ zIndex: -20 }}
+        style={{ zIndex: 0 }}
         src="/235285.mp4"
       />
 

@@ -1,27 +1,32 @@
 'use client';
 
-import { useSpring, animated } from '@react-spring/web';
+import { useSpring, useTrail, animated } from '@react-spring/web';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
+import SectionDivider from './components/SectionDivider';
+import ExperienceSection from './sections/ExperienceSection';
+import EducationSection from './sections/EducationSection';
+import ProjectsSection from './sections/ProjectsSection';
+
 const PILLARS = [
   {
-    tag: '01 // ENGINE',
+    tag: '01 // AI TRAINING',
     title: 'AI Language Architect',
     desc: 'Training advanced large language models to master contextual nuance, reasoning, and human-like interaction at Outlier.',
-    href: '/experience',
+    href: '#experience',
   },
   {
-    tag: '02 // DESIGN',
+    tag: '02 // ACADEMIA & PEDAGOGY',
     title: 'Educational Innovator',
     desc: 'Revolutionizing English Language Teaching at TED University through digital storytelling, interactive frameworks, and modern pedagogy.',
-    href: '/education',
+    href: '#education',
   },
   {
     tag: '03 // EDTECH ARCHITECTURE',
     title: 'Digital Learning Architect',
     desc: 'Blending custom 3D game engines, 5E storytelling frameworks, and Web 2.0 micro-portals to revolutionize grammar retention and learner engagement.',
-    href: '/projects',
+    href: '#projects',
   }
 ];
 
@@ -29,7 +34,39 @@ const MARQUEE_ITEMS = ['AI Training', 'ELT Pedagogy', 'Tech Journalism', 'Softwa
 
 export default function HomePage() {
   const [loaded, setLoaded] = useState(false);
-  useEffect(() => { setLoaded(true); }, []);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  useEffect(() => {
+    setLoaded(true);
+    
+    const handleScroll = () => {
+      if (window.scrollY > 400) {
+        setShowScrollTop(true);
+      } else {
+        setShowScrollTop(false);
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
+  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith('#')) {
+      e.preventDefault();
+      const target = document.querySelector(href);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
 
   const fadeIn = useSpring({
     opacity: loaded ? 1 : 0,
@@ -52,8 +89,15 @@ export default function HomePage() {
     delay: 500
   });
 
+  const trails = useTrail(PILLARS.length, {
+    opacity: loaded ? 1 : 0,
+    transform: loaded ? 'translateY(0px)' : 'translateY(40px)',
+    config: { mass: 1, tension: 180, friction: 24 },
+    delay: 400
+  });
+
   return (
-    <div className="min-h-screen w-full bg-[#050505] text-white font-inter flex flex-col justify-between selection:bg-white selection:text-black antialiased relative">
+    <div className="w-full bg-[#050505] text-white font-inter flex flex-col selection:bg-white selection:text-black antialiased relative">
       <style>{`
         @keyframes marquee {
           0% { transform: translateX(0%); }
@@ -62,7 +106,7 @@ export default function HomePage() {
         .animate-marquee { animation: marquee 35s linear infinite; }
       `}</style>
 
-      {/* FULL-SCREEN AMBIENT BACKGROUND LAYER */}
+      {/* FULL-SCREEN AMBIENT BACKGROUND LAYER (Applies to whole page) */}
       <div
         className="fixed inset-0 pointer-events-none z-0 flex items-center justify-center overflow-hidden opacity-20 mix-blend-screen select-none"
         style={{
@@ -77,87 +121,109 @@ export default function HomePage() {
         />
       </div>
 
-      {/* Top Navigation Bar Component */}
-      <div className="w-full border-b border-white/10 px-8 md:px-16 py-5 flex justify-between items-center font-mono text-xs font-semibold tracking-wider text-neutral-400 uppercase">
-        <div>STATUS // LIVE ARCHIVE</div>
-        <div className="flex items-center gap-6">
-          <Link href="/about" className="hover:text-white transition-colors duration-500">
-            About
-          </Link>
-          <span className="text-neutral-800">//</span>
-          <Link href="/cv" className="hover:text-white transition-colors duration-500">
-            Vitae
-          </Link>
-          <span className="text-neutral-800">//</span>
-          <Link href="/certifications" className="hover:text-white transition-colors duration-500">
-            Certs
-          </Link>
-          <span className="text-neutral-800">//</span>
-          <span>ANKARA, TR // 2026</span>
-        </div>
-      </div>
+      {/* 100vh INITIAL VIEWPORT BLOCK */}
+      <div className="min-h-[100vh] flex flex-col justify-between relative z-10 w-full">
 
-      {/* Main Hero Header Canvas */}
-      <div className="w-full max-w-screen-2xl mx-auto px-8 md:px-16 pt-32 pb-24 flex flex-col items-center text-center flex-grow justify-center">
-        <div className="space-y-8">
-          <animated.div style={heroTitle}>
-            <h1 className="text-6xl sm:text-8xl md:text-9xl lg:text-[11rem] font-black tracking-[-0.06em] text-white selection:bg-white selection:text-black leading-[0.9] relative w-full z-10 block overflow-visible">
-              <span className="relative z-10">Ozan Özen</span>
-            </h1>
-          </animated.div>
-          <animated.div style={fadeIn}>
-            <div className="h-px w-20 bg-white/30 mx-auto" />
-          </animated.div>
-          <animated.div style={hereSub}>
-            <p className="max-w-3xl text-base md:text-lg lg:text-xl text-neutral-400 font-sans leading-relaxed tracking-[0.02em] mx-auto">
-              Shaping the frontier of language and logic. English Language Educator, AI Model Trainer, and Tech Journalist bridging the gap between human expression and machine intelligence.
-            </p>
-          </animated.div>
-        </div>
-      </div>
-
-      {/* Interactive Feature Matrix Grid */}
-      <div className="w-full border-t border-white/10 bg-black/40 backdrop-blur-md">
-        <div className="max-w-screen-2xl mx-auto grid grid-cols-1 md:grid-cols-3 border-x border-white/10 divide-y md:divide-y-0 md:divide-x divide-white/10">
-          {PILLARS.map((pillar, idx) => (
-            <Link
-              key={idx}
-              href={pillar.href}
-              className="group relative p-10 md:p-14 lg:p-16 flex flex-col justify-between transition-all duration-700 hover:bg-white/[0.015] cursor-pointer overflow-hidden min-h-[320px]"
-            >
-              {/* Layer 1: Premium Ambient Radial Bloom */}
-              <div
-                className="absolute inset-0 opacity-0 transition-opacity duration-1000 group-hover:opacity-100 pointer-events-none"
-                style={{ background: 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.05) 0%, transparent 80%)' }}
-              />
-              {/* Layer 2: Top-Edge Highlight Line */}
-              <div
-                className="absolute top-0 left-0 right-0 h-px opacity-0 transition-opacity duration-700 group-hover:opacity-60 pointer-events-none"
-                style={{ background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%)' }}
-              />
-
-              <div className="relative z-10 flex flex-col h-full w-full">
-                <div className="flex justify-between items-center w-full mb-10">
-                  <span className="font-mono text-xs md:text-sm text-neutral-400 font-medium tracking-widest uppercase">{pillar.tag}</span>
-                  <span className="text-neutral-600 opacity-0 group-hover:opacity-100 group-hover:text-white group-hover:translate-x-1.5 transition-all duration-500 text-sm">→</span>
-                </div>
-
-                <div className="space-y-5 flex-grow">
-                  <h3 className="text-2xl md:text-3xl font-semibold tracking-[-0.02em] text-white group-hover:text-zinc-200 transition-colors duration-500">
-                    {pillar.title}
-                  </h3>
-                  <p className="text-base md:text-lg text-neutral-400 leading-[1.7] font-sans tracking-[0.01em]">
-                    {pillar.desc}
-                  </p>
-                </div>
-              </div>
+        {/* Top Navigation Bar Component */}
+        <div className="w-full border-b border-white/10 px-8 md:px-16 py-5 flex justify-between items-center font-mono text-xs font-semibold tracking-wider text-neutral-400 uppercase">
+          <div>STATUS // LIVE ARCHIVE</div>
+          <div className="flex items-center gap-6">
+            <Link href="/about" className="hover:text-white transition-colors duration-500">
+              About
             </Link>
-          ))}
+            <span className="text-neutral-800">//</span>
+            <Link href="/cv" className="hover:text-white transition-colors duration-500">
+              Vitae
+            </Link>
+            <span className="text-neutral-800">//</span>
+            <Link href="/certifications" className="hover:text-white transition-colors duration-500">
+              Certs
+            </Link>
+            <span className="text-neutral-800">//</span>
+            <span>ANKARA, TR // 2026</span>
+          </div>
+        </div>
+
+        {/* Main Hero Header Canvas */}
+        <div className="w-full max-w-screen-2xl mx-auto px-8 md:px-16 pt-32 pb-24 flex flex-col items-center text-center flex-grow justify-center">
+          <div className="space-y-8">
+            <animated.div style={heroTitle}>
+              <h1 className="text-6xl sm:text-8xl md:text-9xl lg:text-[11rem] font-black tracking-[-0.06em] text-white selection:bg-white selection:text-black leading-[0.9] relative w-full z-10 block overflow-visible">
+                <span className="relative z-10">Ozan Özen</span>
+              </h1>
+            </animated.div>
+            <animated.div style={fadeIn}>
+              <div className="h-px w-20 bg-white/30 mx-auto" />
+            </animated.div>
+            <animated.div style={hereSub}>
+              <p className="max-w-3xl text-base md:text-lg lg:text-xl text-neutral-400 font-sans leading-relaxed tracking-[0.02em] mx-auto">
+                Shaping the frontier of language and logic. English Language Educator, AI Model Trainer, and Tech Journalist bridging the gap between human expression and machine intelligence.
+              </p>
+            </animated.div>
+          </div>
+        </div>
+
+        {/* Interactive Feature Matrix Grid */}
+        <div className="w-full border-t border-white/10 bg-black/40 backdrop-blur-md">
+          <div className="max-w-screen-2xl mx-auto grid grid-cols-1 md:grid-cols-3 border-x border-white/10 divide-y md:divide-y-0 md:divide-x divide-white/10">
+            {trails.map((style, idx) => {
+              const pillar = PILLARS[idx];
+              return (
+              <animated.a
+                key={idx}
+                href={pillar.href}
+                onClick={(e) => handleAnchorClick(e, pillar.href)}
+                style={style}
+                className="group relative p-10 md:p-14 lg:p-16 flex flex-col justify-between transition-all duration-700 hover:bg-white/[0.015] cursor-pointer overflow-hidden min-h-[320px]"
+              >
+                {/* Layer 1: Premium Ambient Radial Bloom */}
+                <div
+                  className="absolute inset-0 opacity-0 transition-opacity duration-1000 group-hover:opacity-100 pointer-events-none"
+                  style={{ background: 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.05) 0%, transparent 80%)' }}
+                />
+                {/* Layer 2: Top-Edge Highlight Line */}
+                <div
+                  className="absolute top-0 left-0 right-0 h-px opacity-0 transition-opacity duration-700 group-hover:opacity-60 pointer-events-none"
+                  style={{ background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%)' }}
+                />
+
+                <div className="relative z-10 flex flex-col h-full w-full">
+                  <div className="flex justify-between items-center w-full mb-10">
+                    <span className="font-mono text-xs md:text-sm text-neutral-400 font-medium tracking-widest uppercase">{pillar.tag}</span>
+                    <span className="text-neutral-600 opacity-0 group-hover:opacity-100 group-hover:text-white group-hover:translate-x-1.5 transition-all duration-500 text-sm">→</span>
+                  </div>
+
+                  <div className="space-y-5 flex-grow">
+                    <h3 className="text-2xl md:text-3xl font-semibold tracking-[-0.02em] text-white group-hover:text-zinc-200 transition-colors duration-500">
+                      {pillar.title}
+                    </h3>
+                    <p className="text-base md:text-lg text-neutral-400 leading-[1.7] font-sans tracking-[0.01em]">
+                      {pillar.desc}
+                    </p>
+                  </div>
+                </div>
+              </animated.a>
+              );
+            })}
+          </div>
         </div>
       </div>
 
-      {/* Modern Infinite Smooth Scroll Marquee Footer */}
-      <div className="w-full py-5 bg-black border-t border-white/10 overflow-hidden group">
+
+      {/* Stacked Chronology Sections */}
+      <div className="w-full relative z-10 bg-black/40 backdrop-blur-md">
+        <SectionDivider label="CANVAS → CHRONOLOGY" accentColor="rgba(0,229,255,0.12)" />
+        <ExperienceSection />
+
+        <SectionDivider label="CHRONOLOGY → ACADEMIA" accentColor="rgba(174,234,0,0.12)" />
+        <EducationSection />
+
+        <SectionDivider label="ACADEMIA → ARCHIVE" accentColor="rgba(213,0,247,0.12)" />
+        <ProjectsSection />
+      </div>
+
+      {/* Modern Infinite Smooth Scroll Marquee Footer (At the very bottom) */}
+      <div className="w-full py-5 bg-black/40 backdrop-blur-md border-t border-white/10 overflow-hidden group relative z-20">
         <div className="flex whitespace-nowrap animate-marquee group-hover:[animation-play-state:paused] cursor-default">
           {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, i) => (
             <span key={i} className="mx-12 font-mono text-xs md:text-sm font-medium uppercase tracking-widest text-neutral-400 hover:text-white transition-colors duration-300 flex items-center gap-5">
@@ -166,6 +232,19 @@ export default function HomePage() {
           ))}
         </div>
       </div>
+
+      {/* Scroll To Top Button */}
+      <button
+        onClick={scrollToTop}
+        className={`fixed bottom-8 right-8 z-[100] p-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full backdrop-blur-md transition-all duration-500 text-white shadow-lg ${
+          showScrollTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'
+        }`}
+        aria-label="Scroll to top"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 19V5M5 12l7-7 7 7"/>
+        </svg>
+      </button>
     </div>
   );
 }
