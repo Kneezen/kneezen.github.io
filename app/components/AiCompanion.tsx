@@ -86,12 +86,33 @@ const openrouter = createOpenAI({
 });
 
 export default function AiCompanion() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return sessionStorage.getItem('aiCompanionIsOpen') === 'true';
+    }
+    return false;
+  });
   const [input, setInput] = useState('');
-  const [messages, setMessages] = useState<any[]>([]);
+  const [messages, setMessages] = useState<any[]>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = sessionStorage.getItem('aiCompanionMessages');
+      if (saved) {
+        try { return JSON.parse(saved); } catch (e) {}
+      }
+    }
+    return [];
+  });
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+
+  useEffect(() => {
+    sessionStorage.setItem('aiCompanionMessages', JSON.stringify(messages));
+  }, [messages]);
+
+  useEffect(() => {
+    sessionStorage.setItem('aiCompanionIsOpen', String(isOpen));
+  }, [isOpen]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
