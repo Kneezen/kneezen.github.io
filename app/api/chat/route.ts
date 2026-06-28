@@ -95,7 +95,7 @@ export async function POST(req: Request) {
   
   let historyText = "";
   if (previousMessages.length > 0) {
-    historyText = "\n\n--- PREVIOUS CONVERSATION HISTORY ---\n" + previousMessages.map(m => `${m.role.toUpperCase()}: ${m.content}`).join("\n\n");
+    historyText = "\n\n--- PREVIOUS CONVERSATION HISTORY ---\n" + previousMessages.map((m: any) => `${m.role.toUpperCase()}: ${m.content}`).join("\n\n");
   }
 
   const finalSystemPrompt = SYSTEM_PROMPT + historyText;
@@ -113,9 +113,8 @@ export async function POST(req: Request) {
           path: z.enum(['/', '/about', '/cv', '/education', '/experience', '/projects', '/certifications']).describe('The path to navigate to.'),
           message: z.string().describe('A short message to display to the user before navigating, e.g. "Taking you to the projects page..."'),
         }),
-      })
-    },
-    maxSteps: 1, // Only allow 1 step so it doesn't loop waiting for tool_result on the server
+      } as any),
+    }
   });
 
   return result.toUIMessageStreamResponse();

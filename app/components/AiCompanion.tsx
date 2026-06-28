@@ -88,7 +88,7 @@ export default function AiCompanion() {
     if (!input.trim()) return;
     if (append) {
       append({ role: 'user', content: input });
-    } else if (chat.sendMessage) {
+    } else if ((chat as any).sendMessage) {
       (chat as any).sendMessage({ text: input });
     }
     setInput('');
@@ -173,7 +173,7 @@ export default function AiCompanion() {
             </div>
           </div>
 
-          {messages.map((m) => (
+          {messages.map((m: any) => (
             <div key={m.id} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
               <div className="max-w-[85%] flex items-end gap-2">
                 {m.role !== 'user' && (
