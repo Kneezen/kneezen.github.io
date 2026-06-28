@@ -138,14 +138,18 @@ export default function AiCompanion() {
         if (targetPath && !targetPath.startsWith('/')) {
           targetPath = '/' + targetPath;
         }
-        if (targetPath) targetPath = targetPath.toLowerCase();
-        
-        if (targetPath && targetPath.includes('master')) targetPath = '/cv';
-        if (targetPath && targetPath.includes('credential')) targetPath = '/certifications';
+        if (targetPath) {
+          targetPath = targetPath.toLowerCase();
+          if (targetPath.includes('master') || targetPath.includes('cv')) targetPath = '/cv';
+          else if (targetPath.includes('credential') || targetPath.includes('certification')) targetPath = '/certifications';
+          else if (targetPath.includes('experience')) targetPath = '/experience';
+          else if (targetPath.includes('project')) targetPath = '/projects';
+          else if (targetPath.includes('education')) targetPath = '/education';
+          else if (targetPath.includes('about')) targetPath = '/about';
+        }
         
         const validPaths = ['/', '/about', '/cv', '/education', '/experience', '/projects', '/certifications'];
         if (targetPath && validPaths.includes(targetPath)) {
-          
           setLastNavMsgId(lastMessage.id);
           sessionStorage.setItem('aiCompanionLastNavId', lastMessage.id);
 
@@ -346,10 +350,15 @@ export default function AiCompanion() {
                         
                         let path = navTool.args?.path;
                         if (path && !path.startsWith('/')) path = '/' + path;
-                        if (path) path = path.toLowerCase();
-                        
-                        if (path && path.includes('master')) path = '/cv';
-                        if (path && path.includes('credential')) path = '/certifications';
+                        if (path) {
+                          path = path.toLowerCase();
+                          if (path.includes('master') || path.includes('cv')) path = '/cv';
+                          else if (path.includes('credential') || path.includes('certification')) path = '/certifications';
+                          else if (path.includes('experience')) path = '/experience';
+                          else if (path.includes('project')) path = '/projects';
+                          else if (path.includes('education')) path = '/education';
+                          else if (path.includes('about')) path = '/about';
+                        }
                         const validPaths = ['/', '/about', '/cv', '/education', '/experience', '/projects', '/certifications'];
                         if (path && !validPaths.includes(path)) {
                           content = `I'm sorry, I cannot take you there. The page "${path}" does not exist on this website!`;
