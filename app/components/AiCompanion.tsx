@@ -176,7 +176,7 @@ export default function AiCompanion() {
           assistantMessage.toolInvocations.push({
             toolCallId: (chunk as any).toolCallId,
             toolName: (chunk as any).toolName,
-            args: (chunk as any).args,
+            args: (chunk as any).args || (chunk as any).input || {},
           });
           setMessages(msgs => {
             const updated = [...msgs];
@@ -305,8 +305,8 @@ export default function AiCompanion() {
                     let navTool = null;
                     if (!content && m.toolInvocations && m.toolInvocations.length > 0) {
                       navTool = m.toolInvocations.find((t: any) => t.toolName === 'navigateToPage');
-                      if (navTool && navTool.args?.message) {
-                        content = navTool.args.message;
+                      if (navTool) {
+                        content = navTool.args?.message || "Navigating you to the requested page...";
                         
                         let path = navTool.args?.path;
                         if (path && !path.startsWith('/')) path = '/' + path;
