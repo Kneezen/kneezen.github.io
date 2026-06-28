@@ -23,9 +23,12 @@ const CV_SECTIONS = [
   {
     category: 'EXPERIENCE',
     entries: [
-      { label: 'Outlier', value: 'Administrator & AI Model Trainer (2024–Present)' },
+      { label: 'Outlier', value: 'Project Administrator (2024–Present)' },
+      { label: 'Outlier', value: 'AI Language Model Trainer (2024–Present)' },
       { label: 'Technopat', value: 'Technology Journalist (2024–2026)' },
       { label: 'British Side', value: 'Examination Invigilator (2024–Present)' },
+      { label: 'Freelance', value: 'Digital Architecture & UI/UX Design' },
+      { label: 'Academic', value: 'Pedagogical Materials Developer' },
     ],
   },
   {

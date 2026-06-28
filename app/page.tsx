@@ -127,21 +127,7 @@ export default function HomePage() {
         {/* Top Navigation Bar Component */}
         <div className="w-full border-b border-white/10 px-8 md:px-16 py-5 flex justify-between items-center font-mono text-xs font-semibold tracking-wider text-neutral-400 uppercase">
           <div>STATUS // LIVE ARCHIVE</div>
-          <div className="flex items-center gap-6">
-            <Link href="/about" className="hover:text-white transition-colors duration-500">
-              About
-            </Link>
-            <span className="text-neutral-800">//</span>
-            <Link href="/cv" className="hover:text-white transition-colors duration-500">
-              Vitae
-            </Link>
-            <span className="text-neutral-800">//</span>
-            <Link href="/certifications" className="hover:text-white transition-colors duration-500">
-              Certs
-            </Link>
-            <span className="text-neutral-800">//</span>
-            <span>ANKARA, TR // 2026</span>
-          </div>
+          <div>ANKARA, TR // 2026</div>
         </div>
 
         {/* Main Hero Header Canvas */}
@@ -159,6 +145,22 @@ export default function HomePage() {
               <p className="max-w-3xl text-base md:text-lg lg:text-xl text-neutral-400 font-sans leading-relaxed tracking-[0.02em] mx-auto">
                 Shaping the frontier of language and logic. English Language Educator, AI Model Trainer, and Tech Journalist bridging the gap between human expression and machine intelligence.
               </p>
+            </animated.div>
+            
+            {/* Prominent Navigation Actions */}
+            <animated.div style={hereSub} className="pt-6 flex flex-wrap justify-center gap-4 sm:gap-6">
+              <Link href="/about" className="group relative px-6 py-3 font-mono text-xs sm:text-sm tracking-[0.2em] font-semibold uppercase border border-white/20 hover:border-white hover:bg-white hover:text-black transition-all duration-500 flex items-center gap-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-white group-hover:bg-black transition-colors duration-500" />
+                About Me
+              </Link>
+              <Link href="/cv" className="group relative px-6 py-3 font-mono text-xs sm:text-sm tracking-[0.2em] font-semibold uppercase border border-white/20 hover:border-white hover:bg-white hover:text-black transition-all duration-500 flex items-center gap-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-white group-hover:bg-black transition-colors duration-500" />
+                Curriculum Vitae
+              </Link>
+              <Link href="/certifications" className="group relative px-6 py-3 font-mono text-xs sm:text-sm tracking-[0.2em] font-semibold uppercase border border-white/20 hover:border-white hover:bg-white hover:text-black transition-all duration-500 flex items-center gap-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-white group-hover:bg-black transition-colors duration-500" />
+                Certifications
+              </Link>
             </animated.div>
           </div>
         </div>
@@ -236,7 +238,7 @@ export default function HomePage() {
       {/* Scroll To Top Button */}
       <button
         onClick={scrollToTop}
-        className={`fixed bottom-8 right-8 z-[100] p-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full backdrop-blur-md transition-all duration-500 text-white shadow-lg ${
+        className={`fixed bottom-24 right-6 z-[100] p-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full backdrop-blur-md transition-all duration-500 text-white shadow-lg ${
           showScrollTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'
         }`}
         aria-label="Scroll to top"

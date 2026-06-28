@@ -22,6 +22,8 @@ export const metadata: Metadata = {
   description: "English Language Educator, AI Model Trainer, and Tech Journalist bridging the gap between human expression and machine intelligence.",
 };
 
+import AiCompanion from "./components/AiCompanion";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -32,7 +34,10 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} h-full antialiased bg-black`}
     >
-      <body className="min-h-full flex flex-col bg-black text-white">{children}</body>
+      <body className="min-h-full flex flex-col bg-black text-white">
+        {children}
+        <AiCompanion />
+      </body>
     </html>
   );
 }
