@@ -166,7 +166,7 @@ export default function AiCompanion() {
 
       for await (const chunk of result.fullStream) {
         if (chunk.type === 'text-delta') {
-          assistantMessage.content += (chunk as any).textDelta;
+          assistantMessage.content += (chunk as any).textDelta || (chunk as any).delta || (chunk as any).text || "";
           setMessages(msgs => {
             const updated = [...msgs];
             updated[updated.length - 1] = { ...assistantMessage };
