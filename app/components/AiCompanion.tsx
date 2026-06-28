@@ -135,7 +135,9 @@ export default function AiCompanion() {
     if (targetPath && !targetPath.startsWith('/')) {
       targetPath = '/' + targetPath;
     }
-    if (targetPath && targetPath.toLowerCase().includes('master')) targetPath = '/cv';
+    if (targetPath) targetPath = targetPath.toLowerCase();
+    
+    if (targetPath && targetPath.includes('master')) targetPath = '/cv';
     
     const validPaths = ['/', '/about', '/cv', '/education', '/experience', '/projects', '/certifications'];
     if (targetPath && validPaths.includes(targetPath)) {
@@ -334,7 +336,9 @@ export default function AiCompanion() {
                         
                         let path = navTool.args?.path;
                         if (path && !path.startsWith('/')) path = '/' + path;
-                        if (path && path.toLowerCase().includes('master')) path = '/cv';
+                        if (path) path = path.toLowerCase();
+                        
+                        if (path && path.includes('master')) path = '/cv';
                         const validPaths = ['/', '/about', '/cv', '/education', '/experience', '/projects', '/certifications'];
                         if (path && !validPaths.includes(path)) {
                           content = `I'm sorry, I cannot take you there. The page "${path}" does not exist on this website!`;
