@@ -103,6 +103,12 @@ export default function AiCompanion() {
     return [];
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [lastNavMsgId, setLastNavMsgId] = useState<string | null>(() => {
+    if (typeof window !== 'undefined') {
+      return sessionStorage.getItem('aiCompanionLastNavId');
+    }
+    return null;
+  });
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
