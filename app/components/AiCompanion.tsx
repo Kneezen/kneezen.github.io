@@ -123,40 +123,42 @@ export default function AiCompanion() {
   }, [messages, isOpen]);
 
   useEffect(() => {
-    if (messages.length === 0) return;
     const lastMessage = messages[messages.length - 1];
-    
-    let targetPath = null;
-    if (lastMessage.role === 'assistant' && lastMessage.toolInvocations) {
+    if (lastMessage?.role === 'assistant' && lastMessage.toolInvocations) {
       const navTool = lastMessage.toolInvocations.find((t: any) => t.toolName === 'navigateToPage');
-      if (navTool && navTool.args?.path) targetPath = navTool.args.path;
-    }
-    
-    if (targetPath && !targetPath.startsWith('/')) {
-      targetPath = '/' + targetPath;
-    }
-    if (targetPath) targetPath = targetPath.toLowerCase();
-    
-    if (targetPath && targetPath.includes('master')) targetPath = '/cv';
-    if (targetPath && targetPath.includes('credential')) targetPath = '/certifications';
-    
-    const validPaths = ['/', '/about', '/cv', '/education', '/experience', '/projects', '/certifications'];
-    if (targetPath && validPaths.includes(targetPath)) {
-      let finalRoute = targetPath;
-      if (['/experience', '/education', '/projects'].includes(targetPath)) {
-        const sectionId = targetPath.substring(1);
-        if (typeof window !== 'undefined' && window.location.pathname === '/') {
-          const targetElement = document.getElementById(sectionId);
-          if (targetElement) {
-            targetElement.scrollIntoView({ behavior: 'smooth' });
-            return;
-          }
+      if (navTool && lastMessage.id !== lastNavMsgId) {
+        let targetPath = navTool.args?.path;
+        if (targetPath && !targetPath.startsWith('/')) {
+          targetPath = '/' + targetPath;
         }
-        finalRoute = `/#${sectionId}`;
+        if (targetPath) targetPath = targetPath.toLowerCase();
+        
+        if (targetPath && targetPath.includes('master')) targetPath = '/cv';
+        if (targetPath && targetPath.includes('credential')) targetPath = '/certifications';
+        
+        const validPaths = ['/', '/about', '/cv', '/education', '/experience', '/projects', '/certifications'];
+        if (targetPath && validPaths.includes(targetPath)) {
+          
+          setLastNavMsgId(lastMessage.id);
+          sessionStorage.setItem('aiCompanionLastNavId', lastMessage.id);
+
+          let finalRoute = targetPath;
+          if (['/experience', '/education', '/projects'].includes(targetPath)) {
+            const sectionId = targetPath.substring(1);
+            if (typeof window !== 'undefined' && window.location.pathname === '/') {
+              const targetElement = document.getElementById(sectionId);
+              if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+                return;
+              }
+            }
+            finalRoute = `/#${sectionId}`;
+          }
+          router.push(finalRoute);
+        }
       }
-      router.push(finalRoute);
     }
-  }, [messages, router]);
+  }, [messages, router, lastNavMsgId]);
 
   const append = async (message: { role: string, content: string }) => {
     const newMessages = [...messages, { id: Date.now().toString(), role: message.role, content: message.content, toolInvocations: [] }];
