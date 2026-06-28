@@ -138,6 +138,7 @@ export default function AiCompanion() {
     if (targetPath) targetPath = targetPath.toLowerCase();
     
     if (targetPath && targetPath.includes('master')) targetPath = '/cv';
+    if (targetPath && targetPath.includes('credential')) targetPath = '/certifications';
     
     const validPaths = ['/', '/about', '/cv', '/education', '/experience', '/projects', '/certifications'];
     if (targetPath && validPaths.includes(targetPath)) {
@@ -178,7 +179,7 @@ export default function AiCompanion() {
           navigateToPage: tool({
             description: 'Navigate the user to a specific page on the website. STRICT RULE: ONLY call this if the user explicitly requests to change pages.',
             parameters: z.object({
-              path: z.enum(['/', '/about', '/cv', '/education', '/experience', '/projects', '/certifications']).describe('The path to navigate to. IMPORTANT: Use /cv for the CV (Master Matrix).'),
+              path: z.enum(['/', '/about', '/cv', '/education', '/experience', '/projects', '/certifications']).describe('The path to navigate to. IMPORTANT: Use /cv for the CV (Master Matrix), and /certifications for credentials.'),
               message: z.string().describe('A short message to display to the user before navigating, e.g. "Taking you to the projects page..."'),
             }),
           } as any),
@@ -339,6 +340,7 @@ export default function AiCompanion() {
                         if (path) path = path.toLowerCase();
                         
                         if (path && path.includes('master')) path = '/cv';
+                        if (path && path.includes('credential')) path = '/certifications';
                         const validPaths = ['/', '/about', '/cv', '/education', '/experience', '/projects', '/certifications'];
                         if (path && !validPaths.includes(path)) {
                           content = `I'm sorry, I cannot take you there. The page "${path}" does not exist on this website!`;
