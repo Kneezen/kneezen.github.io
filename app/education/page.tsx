@@ -1,269 +1,142 @@
-'use client';
-
-import { useSpring, animated } from '@react-spring/web';
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import AnimatedBorder from '../components/AnimatedBorder';
+import type { Metadata } from 'next';
+import { Globe2, Users, Layers } from 'lucide-react';
+import PageHero from '../components/site/PageHero';
 import ScrollReveal from '../components/ScrollReveal';
-import ArtifactSlot from '../components/ArtifactSlot';
+import Spotlight from '../components/ui/Spotlight';
+import ImageLightbox from '../components/ImageLightbox';
+import Img from '../components/ui/Img';
+import { CardTitle, MediaLabel, Rule, SignOff } from '../components/ui/Bits';
+import { ACCENTS, ERASMUS, INSTITUTION, METHODOLOGIES, PEDAGOGY_STATEMENT, SOCIETIES } from '../data/profile';
 
-const ACCENT = '#AEEA00';
+export const metadata: Metadata = {
+  title: 'Education',
+  description: 'Academic foundations at TED University: English Language Teaching, CLT, PPP and UNESCO PREPARE methodologies, and Erasmus+ mobility for 2025–2026.',
+  alternates: { canonical: '/education' },
+};
 
-const METHODOLOGIES = [
-  {
-    code: 'CLT',
-    name: 'Communicative Language Teaching',
-    desc: 'Structuring realistic, high-impact communicative goals that prioritize meaning negotiation over mechanical accuracy. Lessons are built around authentic discourse scenarios, such as information gaps, role-plays, and opinion exchanges, that force genuine target-language production rather than scripted repetition.',
-  },
-  {
-    code: 'PPP',
-    name: 'Presentation → Practice → Production',
-    desc: 'Designing systematic lessons through a clean three-phase architecture: controlled Presentation of target structures, guided Practice through scaffolded activities, and autonomous Production where learners deploy acquired language in unscripted, communicative contexts with decreasing teacher intervention.',
-  },
-  {
-    code: 'PREPARE',
-    name: 'UNESCO PREPARE Framework',
-    desc: 'Utilizing structured UNESCO metrics to generate equitable, high-impact lesson outlines and acoustic educational materials. This framework emphasizes inclusive design, ensuring lesson accessibility across diverse learner profiles while maintaining rigorous pedagogical standards and measurable learning outcomes.',
-  },
-];
+const ACCENT = ACCENTS.lime;
+const SOCIETY_ICONS = [Users, Layers];
 
 export default function EducationPage() {
-  const [loaded, setLoaded] = useState(false);
-  useEffect(() => { setLoaded(true); }, []);
-
-  const titleReveal = useSpring({
-    opacity: loaded ? 1 : 0,
-    transform: loaded ? 'translateY(0px)' : 'translateY(50px)',
-    config: { mass: 1.2, tension: 100, friction: 28 },
-    delay: 200,
-  });
-
-  const subtitleReveal = useSpring({
-    opacity: loaded ? 1 : 0,
-    transform: loaded ? 'translateY(0px)' : 'translateY(30px)',
-    config: { mass: 1, tension: 120, friction: 26 },
-    delay: 500,
-  });
-
   return (
-    <div className="min-h-screen w-full bg-transparent text-white font-inter flex flex-col selection:bg-white selection:text-black antialiased relative">
-      {/* GLOBAL FIXED VIDEO FLOOR */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="fixed top-0 left-0 w-screen h-screen object-cover pointer-events-none opacity-30"
-        style={{ zIndex: -20 }}
-        src="/12778064_3840_2160_30fps.mp4"
-      />
+    <>
+      <PageHero section="ACADEMIA" title="Academic Foundations & Theory" subtitle="TED University // ELT Division" accent={ACCENT} video="education" videoOpacity={0.3} />
 
-      {/* Ambient page glow */}
-      <div
-        className="fixed top-0 left-1/2 -translate-x-1/2 w-[1400px] h-[900px] pointer-events-none glow-pulse"
-        style={{ background: `radial-gradient(ellipse at 50% 0%, ${ACCENT}0A 0%, transparent 70%)` }}
-      />
+      <div className="relative z-10 mx-auto w-full max-w-screen-2xl space-y-8 px-5 sm:px-8 md:px-16">
+        {/* Institutional profile */}
+        <ScrollReveal>
+          <Spotlight accent={ACCENT} as="section" className="overflow-hidden">
+            <div className="grid lg:grid-cols-2">
+              <div className="space-y-7 p-7 sm:p-10 lg:p-14">
+                <CardTitle accent={ACCENT}>INSTITUTIONAL PROFILE</CardTitle>
+                <Rule accent={ACCENT} />
+                <p className="text-3xl font-semibold tracking-[-0.02em] text-white md:text-4xl">{INSTITUTION.name}</p>
+                <dl className="divide-y divide-white/5">
+                  {INSTITUTION.facts.map(([label, value]) => (
+                    <div key={label} className="flex flex-col gap-1 py-3.5 sm:flex-row sm:items-baseline sm:gap-6">
+                      <dt className="min-w-[100px] font-mono text-[11px] font-bold uppercase tracking-widest text-neutral-500">{label}</dt>
+                      <dd className="text-base text-neutral-200 md:text-lg">{value}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+              <figure className="relative min-h-72 border-t border-white/5 lg:border-l lg:border-t-0">
+                <ImageLightbox src={INSTITUTION.image.src} alt={INSTITUTION.image.alt} className="h-full">
+                  <Img src={INSTITUTION.image.src} alt={INSTITUTION.image.alt} className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1.4s] ease-expo group-hover/lightbox:scale-105" />
+                  <span className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                </ImageLightbox>
+                <figcaption className="pointer-events-none absolute left-5 top-5 rounded-full bg-black/70 px-3 py-1.5 backdrop-blur-md">
+                  <MediaLabel accent={ACCENT}>{INSTITUTION.image.label}</MediaLabel>
+                </figcaption>
+              </figure>
+            </div>
+          </Spotlight>
+        </ScrollReveal>
 
-      {/* Back Navigation */}
-      <Link
-        href="/"
-        className="fixed top-6 left-8 z-50 font-mono text-xs font-semibold tracking-wider text-neutral-400 uppercase hover-flicker transition-colors duration-500"
-      >
-        ← RETURN TO CANVAS
-      </Link>
+        {/* Pedagogy statement */}
+        <ScrollReveal>
+          <Spotlight accent={ACCENT} as="section" className="p-7 sm:p-10 lg:p-14">
+            <CardTitle accent={ACCENT}>PEDAGOGICAL METHODOLOGIES</CardTitle>
+            <div className="my-7">
+              <Rule accent={ACCENT} />
+            </div>
+            <p className="max-w-5xl text-lg leading-[1.8] text-neutral-300 sm:text-xl">{PEDAGOGY_STATEMENT}</p>
+          </Spotlight>
+        </ScrollReveal>
 
-      {/* Page Header */}
-      <div className="w-full border-b border-white/10 bg-black/40 backdrop-blur-sm px-8 md:px-16 py-5 flex justify-end items-center font-mono text-xs md:text-sm text-neutral-400 font-medium tracking-widest uppercase relative z-10">
-        <div className="flex items-center gap-3">
-          <span className="inline-block w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: ACCENT }} />
-          <span>SECTION: ACADEMIA</span>
-        </div>
-      </div>
-
-      {/* Main Content */}
-      <div className="flex-grow flex flex-col items-center justify-start px-8 md:px-16 py-28 relative z-10">
-        <div className="w-full max-w-screen-2xl space-y-24">
-          {/* Title Block */}
-          <div className="space-y-6">
-            <animated.div style={titleReveal}>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-[-0.05em] text-white leading-[0.95]">
-                Academic Foundations & Theory
-              </h1>
-            </animated.div>
-            <animated.div style={subtitleReveal}>
-              <div className="h-px w-20" style={{ backgroundColor: `${ACCENT}60` }} />
-            </animated.div>
-            <animated.div style={subtitleReveal}>
-              <p className="font-mono text-xs md:text-sm tracking-widest text-neutral-400 font-medium uppercase">
-                TED University // ELT Division
-              </p>
-            </animated.div>
-          </div>
-
-          {/* Institutional Profile + Artifact */}
+        {/* Theoretical frameworks */}
+        <section className="pt-10">
           <ScrollReveal>
-            <AnimatedBorder delay={400} accentColor={ACCENT}>
-              <div className="backdrop-blur-md bg-zinc-950/40">
-                <div className="p-10 md:p-14 lg:p-16 space-y-8">
-                  <div className="flex items-center gap-4">
-                    <div className="w-3 h-3 rounded-full shrink-0" style={{ backgroundColor: ACCENT }} />
-                    <span className="font-mono text-xl md:text-2xl lg:text-3xl tracking-[0.08em] font-bold uppercase leading-tight" style={{ color: ACCENT }}>
-                      INSTITUTIONAL PROFILE
+            <p className="mb-6 font-mono text-[11px] font-medium uppercase tracking-[0.22em] text-neutral-500">Theoretical Frameworks //</p>
+          </ScrollReveal>
+          <div className="grid gap-6 lg:grid-cols-3">
+            {METHODOLOGIES.map((m, idx) => (
+              <ScrollReveal key={m.code} delay={idx * 100} className="h-full">
+                <Spotlight accent={ACCENT} as="article" className="flex h-full flex-col p-7 sm:p-9">
+                  <div className="flex items-center justify-between">
+                    <span className="rounded-full px-3 py-1.5 font-mono text-xs font-bold tracking-[0.1em]" style={{ color: ACCENT, border: `1px solid ${ACCENT}40` }}>
+                      {m.code}
                     </span>
+                    <span className="font-mono text-xs text-neutral-600">{String(idx + 1).padStart(2, '0')}</span>
                   </div>
-                  <div className="h-px w-full" style={{ backgroundColor: `${ACCENT}10` }} />
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                    <div className="space-y-5">
-                      <p className="text-2xl md:text-3xl font-semibold tracking-[-0.02em] text-white">
-                        TED University
-                      </p>
-                      <div className="space-y-3">
-                        {[
-                          ['Location', 'Ankara, Türkiye'],
-                          ['Program', 'English Language Teaching (ELT)'],
-                          ['Status', '3rd-Year Undergraduate'],
-                          ['Track', 'Teacher Education & Applied Linguistics'],
-                        ].map(([label, value], i) => (
-                          <div key={i} className="flex items-baseline gap-4">
-                            <span className="font-mono text-xs font-bold tracking-widest text-neutral-400/90 uppercase min-w-[90px]">{label}</span>
-                            <span className="text-base md:text-lg text-neutral-300 font-sans">{value}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                    <ArtifactSlot label="ARTIFACT_IMG_01 // CAMPUS_OVERVIEW" accentColor={ACCENT} imageUrl="image_d874e4.jpg" />
-                  </div>
-                </div>
-              </div>
-            </AnimatedBorder>
-          </ScrollReveal>
-
-          {/* Pedagogical Methodologies */}
-          <ScrollReveal delay={100}>
-            <AnimatedBorder delay={600} accentColor={ACCENT}>
-              <div className="backdrop-blur-md bg-zinc-950/40 p-10 md:p-14 lg:p-16 space-y-8">
-                <div className="flex items-center gap-4">
-                  <div className="w-3 h-3 rounded-full shrink-0" style={{ backgroundColor: ACCENT }} />
-                  <span className="font-mono text-xl md:text-2xl lg:text-3xl tracking-[0.08em] font-bold uppercase leading-tight" style={{ color: ACCENT }}>
-                    PEDAGOGICAL METHODOLOGIES
-                  </span>
-                </div>
-                <div className="h-px w-full" style={{ backgroundColor: `${ACCENT}10` }} />
-                <p className="text-base md:text-lg lg:text-xl text-neutral-300 leading-[1.9] font-sans tracking-[0.01em]">
-                  Training centers around deploying student-centered frameworks that prioritize active target-language production, moving decisively away from archaic rote memorization paradigms. The pedagogical philosophy is grounded in the belief that language acquisition occurs most effectively when learners are immersed in authentic communicative contexts with structured scaffolding that is gradually removed as competence develops.
-                </p>
-              </div>
-            </AnimatedBorder>
-          </ScrollReveal>
-
-          {/* Theoretical Frameworks */}
-          <div className="space-y-8">
-            <ScrollReveal delay={50}>
-              <p className="font-mono text-xs md:text-sm tracking-widest text-neutral-400 font-medium uppercase">
-                Theoretical Frameworks //
-              </p>
-            </ScrollReveal>
-
-            {METHODOLOGIES.map((method, idx) => (
-              <ScrollReveal key={idx} delay={100 + idx * 120}>
-                <AnimatedBorder delay={700 + idx * 250} accentColor={ACCENT}>
-                  <div className="backdrop-blur-md bg-zinc-950/40 p-10 md:p-14 lg:p-16 space-y-6">
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-                      <span
-                        className="font-mono text-[12px] font-bold tracking-[0.1em] uppercase px-3 py-1.5"
-                        style={{ color: ACCENT, border: `1px solid ${ACCENT}30` }}
-                      >
-                        {method.code}
-                      </span>
-                      <span className="text-lg md:text-xl font-medium text-white tracking-[-0.01em]">
-                        {method.name}
-                      </span>
-                    </div>
-                    <p
-                      className="text-base md:text-lg text-neutral-400 leading-[1.9] font-sans tracking-[0.01em] pl-6"
-                      style={{ borderLeft: `2px solid ${ACCENT}20` }}
-                    >
-                      {method.desc}
-                    </p>
-                  </div>
-                </AnimatedBorder>
+                  <h3 className="mt-6 text-xl font-semibold tracking-[-0.01em] text-white">{m.name}</h3>
+                  <p className="mt-4 border-l-2 pl-5 text-[15px] leading-[1.8] text-neutral-400" style={{ borderColor: `${ACCENT}30` }}>
+                    {m.desc}
+                  </p>
+                </Spotlight>
               </ScrollReveal>
             ))}
           </div>
+        </section>
 
-          {/* Societies & Leadership Engagement */}
-          <ScrollReveal delay={150}>
-            <AnimatedBorder delay={800} accentColor={ACCENT}>
-              <div className="backdrop-blur-md bg-zinc-950/40 p-10 md:p-14 lg:p-16 space-y-8">
-                <div className="flex items-center gap-4">
-                  <div className="w-3 h-3 rounded-full shrink-0" style={{ backgroundColor: ACCENT }} />
-                  <span className="font-mono text-xl md:text-2xl lg:text-3xl tracking-[0.08em] font-bold uppercase leading-tight" style={{ color: ACCENT }}>
-                    SOCIETIES & LEADERSHIP ENGAGEMENT
-                  </span>
-                </div>
-                <div className="h-px w-full" style={{ backgroundColor: `${ACCENT}10` }} />
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                  <div className="space-y-4">
-                    <h3 className="text-xl md:text-2xl font-semibold text-white tracking-[-0.01em]">Institutional Footprint</h3>
-                    <p className="text-base md:text-lg text-neutral-400 leading-[1.8] font-sans">
-                      Active engagement within the TED University Directorate of Social and Cultural Affairs, participating in campus ecosystems focused on democratic participation, peer mentoring, and community building.
-                    </p>
-                  </div>
-                  <div className="space-y-4">
-                    <h3 className="text-xl md:text-2xl font-semibold text-white tracking-[-0.01em]">Competency Frameworks</h3>
-                    <p className="text-base md:text-lg text-neutral-400 leading-[1.8] font-sans">
-                      Researching and implementing digital competency frameworks and sustainable development goals (SDGs) to bridge the gap between regional student societies and global academic standards.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </AnimatedBorder>
-          </ScrollReveal>
-
-          {/* Erasmus+ Milestone */}
-          <ScrollReveal delay={200}>
-            <AnimatedBorder delay={1000} accentColor={ACCENT}>
-              <div className="backdrop-blur-md bg-zinc-950/40 p-10 md:p-14 lg:p-16 space-y-8">
-                <div className="flex items-center gap-4">
-                  <div className="w-3 h-3 rounded-full shrink-0" style={{ backgroundColor: ACCENT }} />
-                  <span className="font-mono text-xl md:text-2xl lg:text-3xl tracking-[0.08em] font-bold uppercase leading-tight" style={{ color: ACCENT }}>
-                    GLOBAL MOBILITY CLEARANCE
-                  </span>
-                </div>
-                <div className="h-px w-full" style={{ backgroundColor: `${ACCENT}10` }} />
-                <p className="text-base md:text-lg lg:text-xl text-neutral-300 leading-[1.9] font-sans tracking-[0.01em]">
-                  Successfully vetted and cleared for the international Erasmus+ Student Mobility tracks for the 2025–2026 academic calendar. This milestone validates cross-institutional academic standing and opens pathways for embedded pedagogical research within European university systems.
-                </p>
-                <div className="flex items-center gap-4 pt-2">
-                  <span className="inline-block w-2.5 h-2.5 rounded-full animate-pulse" style={{ backgroundColor: ACCENT }} />
-                  <span className="font-mono text-xs font-semibold tracking-wide uppercase" style={{ color: ACCENT }}>
-                    Erasmus+ Cleared // 2025–2026
-                  </span>
-                </div>
-              </div>
-            </AnimatedBorder>
-          </ScrollReveal>
-
-          {/* Signature Divider */}
-          <ScrollReveal delay={300}>
-            <div className="flex items-center gap-6 pt-8">
-              <div className="h-px flex-grow" style={{ backgroundColor: `${ACCENT}15` }} />
-              <span className="font-mono text-xs md:text-sm tracking-widest text-neutral-400 font-medium uppercase">
-                END_STREAM // ACADEMIC_MATRIX
-              </span>
-              <div className="h-px flex-grow" style={{ backgroundColor: `${ACCENT}15` }} />
+        {/* Societies */}
+        <ScrollReveal>
+          <Spotlight accent={ACCENT} as="section" className="p-7 sm:p-10 lg:p-14">
+            <CardTitle accent={ACCENT}>SOCIETIES & LEADERSHIP ENGAGEMENT</CardTitle>
+            <div className="my-7">
+              <Rule accent={ACCENT} />
             </div>
-          </ScrollReveal>
-        </div>
-      </div>
+            <div className="grid gap-10 md:grid-cols-2">
+              {SOCIETIES.map((s, i) => {
+                const Icon = SOCIETY_ICONS[i] ?? Users;
+                return (
+                  <div key={s.title} className="space-y-4">
+                    <span className="grid h-11 w-11 place-items-center rounded-xl border border-white/10 bg-white/[0.03]" style={{ color: ACCENT }}>
+                      <Icon className="h-5 w-5" />
+                    </span>
+                    <h3 className="text-xl font-semibold tracking-[-0.01em] text-white md:text-2xl">{s.title}</h3>
+                    <p className="text-base leading-[1.8] text-neutral-400 md:text-lg">{s.desc}</p>
+                  </div>
+                );
+              })}
+            </div>
+          </Spotlight>
+        </ScrollReveal>
 
-      {/* Footer */}
-      <div className="w-full border-t border-white/10 bg-black/40 backdrop-blur-sm px-8 md:px-16 py-5 flex justify-between items-center font-mono text-xs font-semibold tracking-wider text-neutral-400 uppercase relative z-10">
-        <div>EDUCATION // ACADEMIC STACK</div>
-        <div>ANKARA, TR // 2026</div>
+        {/* Erasmus+ */}
+        <ScrollReveal>
+          <Spotlight accent={ACCENT} as="section" className="relative overflow-hidden p-7 sm:p-10 lg:p-14">
+            <Globe2 aria-hidden className="pointer-events-none absolute -right-16 -top-16 h-72 w-72 opacity-[0.06]" style={{ color: ACCENT }} strokeWidth={0.6} />
+            <CardTitle accent={ACCENT}>{ERASMUS.title}</CardTitle>
+            <div className="my-7">
+              <Rule accent={ACCENT} />
+            </div>
+            <p className="max-w-4xl text-lg leading-[1.8] text-neutral-300 sm:text-xl">{ERASMUS.content}</p>
+            <div className="mt-8 inline-flex items-center gap-3 rounded-full px-4 py-2" style={{ border: `1px solid ${ACCENT}40`, background: `${ACCENT}0d` }}>
+              <span className="h-2.5 w-2.5 animate-pulse rounded-full" style={{ backgroundColor: ACCENT }} />
+              <span className="font-mono text-xs font-semibold uppercase tracking-wide" style={{ color: ACCENT }}>
+                {ERASMUS.badge}
+              </span>
+            </div>
+          </Spotlight>
+        </ScrollReveal>
+
+        <ScrollReveal>
+          <div className="pt-8">
+            <SignOff accent={ACCENT}>END_STREAM // ACADEMIC_MATRIX</SignOff>
+          </div>
+        </ScrollReveal>
       </div>
-    </div>
+    </>
   );
 }

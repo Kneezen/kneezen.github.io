@@ -1,252 +1,228 @@
-'use client';
-
-import { useSpring, useTrail, animated } from '@react-spring/web';
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { ArrowRight, ArrowUpRight, GraduationCap, Mail } from 'lucide-react';
+import Hero from './components/home/Hero';
+import CountUp from './components/home/CountUp';
+import MissionScroll from './components/home/MissionScroll';
+import ExperienceTabs from './components/home/ExperienceTabs';
+import TiltCard from './components/home/TiltCard';
+import ScrollReveal from './components/ScrollReveal';
+import Spotlight from './components/ui/Spotlight';
+import Img from './components/ui/Img';
+import { Kicker, Linkedin } from './components/ui/Bits';
+import { ACCENTS, CERTIFICATIONS, ERASMUS, INSTITUTION, MANIFESTO, PILLARS, PROFILE, PROJECTS, TIMELINE } from './data/profile';
 
-import SectionDivider from './components/SectionDivider';
-import ExperienceSection from './sections/ExperienceSection';
-import EducationSection from './sections/EducationSection';
-import ProjectsSection from './sections/ProjectsSection';
-
-const PILLARS = [
-  {
-    tag: '01 // AI TRAINING',
-    title: 'AI Language Architect',
-    desc: 'Training advanced large language models to master contextual nuance, reasoning, and human-like interaction at Outlier.',
-    href: '#experience',
-  },
-  {
-    tag: '02 // ACADEMIA & PEDAGOGY',
-    title: 'Educational Innovator',
-    desc: 'Revolutionizing English Language Teaching at TED University through digital storytelling, interactive frameworks, and modern pedagogy.',
-    href: '#education',
-  },
-  {
-    tag: '03 // EDTECH ARCHITECTURE',
-    title: 'Digital Learning Architect',
-    desc: 'Blending custom 3D game engines, 5E storytelling frameworks, and Web 2.0 micro-portals to revolutionize grammar retention and learner engagement.',
-    href: '#projects',
-  }
-];
-
-const MARQUEE_ITEMS = ['AI Training', 'ELT Pedagogy', 'Tech Journalism', 'Software Architecture', '3D Printing', 'Hardware Analytics'];
+function SectionHead({ index, label, title, accent, href, cta }: { index: string; label: string; title: string; accent: string; href?: string; cta?: string }) {
+  return (
+    <div className="mb-10 flex flex-col gap-6 sm:mb-14 md:flex-row md:items-end md:justify-between">
+      <div>
+        <Kicker accent={accent}>
+          {index}{' // '}{label}
+        </Kicker>
+        <h2 className="mt-5 max-w-3xl text-4xl font-black leading-[0.95] tracking-[-0.045em] text-white sm:text-5xl lg:text-6xl">{title}</h2>
+      </div>
+      {href && (
+        <Link href={href} className="group inline-flex shrink-0 items-center gap-2 self-start rounded-full border border-white/15 px-5 py-2.5 text-sm text-neutral-300 transition-all hover:border-white hover:bg-white hover:text-black md:self-auto">
+          {cta}
+          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+        </Link>
+      )}
+    </div>
+  );
+}
 
 export default function HomePage() {
-  const [loaded, setLoaded] = useState(false);
-  const [showScrollTop, setShowScrollTop] = useState(false);
-
-  useEffect(() => {
-    setLoaded(true);
-    
-    const handleScroll = () => {
-      if (window.scrollY > 400) {
-        setShowScrollTop(true);
-      } else {
-        setShowScrollTop(false);
-      }
-    };
-    
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  };
-
-  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (href.startsWith('#')) {
-      e.preventDefault();
-      const target = document.querySelector(href);
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-  };
-
-  const fadeIn = useSpring({
-    opacity: loaded ? 1 : 0,
-    transform: loaded ? 'translateY(0px)' : 'translateY(30px)',
-    config: { mass: 1, tension: 120, friction: 26 },
-    delay: 200
-  });
-
-  const heroTitle = useSpring({
-    opacity: loaded ? 1 : 0,
-    transform: loaded ? 'translateY(0px)' : 'translateY(50px)',
-    config: { mass: 1.2, tension: 100, friction: 28 },
-    delay: 100
-  });
-
-  const hereSub = useSpring({
-    opacity: loaded ? 1 : 0,
-    transform: loaded ? 'translateY(0px)' : 'translateY(30px)',
-    config: { mass: 1, tension: 120, friction: 26 },
-    delay: 500
-  });
-
-  const trails = useTrail(PILLARS.length, {
-    opacity: loaded ? 1 : 0,
-    transform: loaded ? 'translateY(0px)' : 'translateY(40px)',
-    config: { mass: 1, tension: 180, friction: 24 },
-    delay: 400
-  });
+  const stats = [
+    { to: TIMELINE.length, label: 'Professional roles', suffix: '' },
+    { to: CERTIFICATIONS.length, label: 'Certifications', suffix: '' },
+    { to: PROJECTS.length, label: 'Flagship modules', suffix: '' },
+    { to: 2024, label: 'Training LLMs since', suffix: '' },
+  ];
 
   return (
-    <div className="w-full bg-[#050505] text-white font-inter flex flex-col selection:bg-white selection:text-black antialiased relative">
-      <style>{`
-        @keyframes marquee {
-          0% { transform: translateX(0%); }
-          100% { transform: translateX(-50%); }
-        }
-        .animate-marquee { animation: marquee 35s linear infinite; }
-      `}</style>
+    <>
+      <Hero />
 
-      {/* FULL-SCREEN AMBIENT BACKGROUND LAYER (Applies to whole page) */}
-      <div
-        className="fixed inset-0 pointer-events-none z-0 flex items-center justify-center overflow-hidden opacity-20 mix-blend-screen select-none"
-        style={{
-          maskImage: 'radial-gradient(circle at center, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 80%)',
-          WebkitMaskImage: 'radial-gradient(circle at center, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 80%)'
-        }}
-      >
-        <img
-          src="/pacto-visual-cWOzOnSoh6Q-unsplash.jpg"
-          alt="Ambient Background"
-          className="w-full h-full object-cover object-center img-rendering-crisp"
-        />
-      </div>
-
-      {/* 100vh INITIAL VIEWPORT BLOCK */}
-      <div className="min-h-[100vh] flex flex-col justify-between relative z-10 w-full">
-
-        {/* Top Navigation Bar Component */}
-        <div className="w-full border-b border-white/10 px-8 md:px-16 py-5 flex justify-between items-center font-mono text-xs font-semibold tracking-wider text-neutral-400 uppercase">
-          <div>STATUS // LIVE ARCHIVE</div>
-          <div>ANKARA, TR // 2026</div>
-        </div>
-
-        {/* Main Hero Header Canvas */}
-        <div className="w-full max-w-screen-2xl mx-auto px-8 md:px-16 pt-32 pb-24 flex flex-col items-center text-center flex-grow justify-center">
-          <div className="space-y-8">
-            <animated.div style={heroTitle}>
-              <h1 className="text-6xl sm:text-8xl md:text-9xl lg:text-[11rem] font-black tracking-[-0.06em] text-white selection:bg-white selection:text-black leading-[0.9] relative w-full z-10 block overflow-visible">
-                <span className="relative z-10">Ozan Özen</span>
-              </h1>
-            </animated.div>
-            <animated.div style={fadeIn}>
-              <div className="h-px w-20 bg-white/30 mx-auto" />
-            </animated.div>
-            <animated.div style={hereSub}>
-              <p className="max-w-3xl text-base md:text-lg lg:text-xl text-neutral-400 font-sans leading-relaxed tracking-[0.02em] mx-auto">
-                Shaping the frontier of language and logic. English Language Educator, AI Model Trainer, and Tech Journalist bridging the gap between human expression and machine intelligence.
-              </p>
-            </animated.div>
-            
-            {/* Prominent Navigation Actions */}
-            <animated.div style={hereSub} className="pt-6 flex flex-wrap justify-center gap-4 sm:gap-6">
-              <Link href="/about" className="group relative px-6 py-3 font-mono text-xs sm:text-sm tracking-[0.2em] font-semibold uppercase border border-white/20 hover:border-white hover:bg-white hover:text-black transition-all duration-500 flex items-center gap-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-white group-hover:bg-black transition-colors duration-500" />
-                About Me
-              </Link>
-              <Link href="/cv" className="group relative px-6 py-3 font-mono text-xs sm:text-sm tracking-[0.2em] font-semibold uppercase border border-white/20 hover:border-white hover:bg-white hover:text-black transition-all duration-500 flex items-center gap-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-white group-hover:bg-black transition-colors duration-500" />
-                Curriculum Vitae
-              </Link>
-              <Link href="/certifications" className="group relative px-6 py-3 font-mono text-xs sm:text-sm tracking-[0.2em] font-semibold uppercase border border-white/20 hover:border-white hover:bg-white hover:text-black transition-all duration-500 flex items-center gap-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-white group-hover:bg-black transition-colors duration-500" />
-                Certifications
-              </Link>
-            </animated.div>
+      <div className="relative z-10 mx-auto w-full max-w-screen-2xl px-5 sm:px-8 md:px-16">
+        {/* Pillars */}
+        <section id="pillars" aria-label="What I do" className="scroll-mt-24 pt-16 sm:pt-24">
+          <div className="grid gap-4 md:grid-cols-3">
+            {PILLARS.map((p, i) => (
+              <ScrollReveal key={p.tag} delay={i * 100} className="h-full">
+                <TiltCard href={p.href} accent={ACCENTS[p.accent]} className="flex h-full min-h-[300px] flex-col justify-between p-8 sm:p-10">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-[11px] font-medium uppercase tracking-widest text-neutral-400">{p.tag}</span>
+                    <ArrowUpRight className="h-5 w-5 text-neutral-600 transition-all duration-500 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-white" />
+                  </div>
+                  <div className="mt-16 space-y-4">
+                    <span className="block h-px w-12 transition-all duration-700 ease-expo group-hover:w-24" style={{ background: ACCENTS[p.accent] }} />
+                    <h3 className="text-2xl font-semibold tracking-[-0.02em] text-white sm:text-3xl">{p.title}</h3>
+                    <p className="text-[15px] leading-[1.75] text-neutral-400 sm:text-base">{p.desc}</p>
+                  </div>
+                </TiltCard>
+              </ScrollReveal>
+            ))}
           </div>
-        </div>
+        </section>
 
-        {/* Interactive Feature Matrix Grid */}
-        <div className="w-full border-t border-white/10 bg-black/40 backdrop-blur-md">
-          <div className="max-w-screen-2xl mx-auto grid grid-cols-1 md:grid-cols-3 border-x border-white/10 divide-y md:divide-y-0 md:divide-x divide-white/10">
-            {trails.map((style, idx) => {
-              const pillar = PILLARS[idx];
-              return (
-              <animated.a
-                key={idx}
-                href={pillar.href}
-                onClick={(e) => handleAnchorClick(e, pillar.href)}
-                style={style}
-                className="group relative p-10 md:p-14 lg:p-16 flex flex-col justify-between transition-all duration-700 hover:bg-white/[0.015] cursor-pointer overflow-hidden min-h-[320px]"
-              >
-                {/* Layer 1: Premium Ambient Radial Bloom */}
-                <div
-                  className="absolute inset-0 opacity-0 transition-opacity duration-1000 group-hover:opacity-100 pointer-events-none"
-                  style={{ background: 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.05) 0%, transparent 80%)' }}
-                />
-                {/* Layer 2: Top-Edge Highlight Line */}
-                <div
-                  className="absolute top-0 left-0 right-0 h-px opacity-0 transition-opacity duration-700 group-hover:opacity-60 pointer-events-none"
-                  style={{ background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%)' }}
-                />
+        {/* Stats */}
+        <ScrollReveal>
+          <section aria-label="At a glance" className="mt-4 grid grid-cols-2 gap-px overflow-hidden rounded-3xl border border-white/10 bg-white/10 lg:grid-cols-4">
+            {stats.map((s) => (
+              <div key={s.label} className="bg-[#070708]/90 px-6 py-8 sm:px-8 sm:py-10">
+                <p className="text-4xl font-black tracking-[-0.04em] text-white sm:text-5xl">
+                  <CountUp to={s.to} suffix={s.suffix} duration={s.to > 100 ? 1800 : 1200} />
+                </p>
+                <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-500 sm:text-[11px]">{s.label}</p>
+              </div>
+            ))}
+          </section>
+        </ScrollReveal>
 
-                <div className="relative z-10 flex flex-col h-full w-full">
-                  <div className="flex justify-between items-center w-full mb-10">
-                    <span className="font-mono text-xs md:text-sm text-neutral-400 font-medium tracking-widest uppercase">{pillar.tag}</span>
-                    <span className="text-neutral-600 opacity-0 group-hover:opacity-100 group-hover:text-white group-hover:translate-x-1.5 transition-all duration-500 text-sm">→</span>
-                  </div>
+        {/* Mission */}
+        <section aria-label="Mission" className="py-28 sm:py-40">
+          <Kicker accent={ACCENTS.silver}>00 // {MANIFESTO[0].tag}</Kicker>
+          <div className="mt-10 max-w-6xl">
+            <MissionScroll text={MANIFESTO[0].content} highlight="decode complexity, encode clarity, and deliver meaning with zero signal loss." />
+          </div>
+          <Link href="/about" className="group mt-12 inline-flex items-center gap-2 text-sm text-neutral-400 transition-colors hover:text-white">
+            Read the full philosophy <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </Link>
+        </section>
 
-                  <div className="space-y-5 flex-grow">
-                    <h3 className="text-2xl md:text-3xl font-semibold tracking-[-0.02em] text-white group-hover:text-zinc-200 transition-colors duration-500">
-                      {pillar.title}
-                    </h3>
-                    <p className="text-base md:text-lg text-neutral-400 leading-[1.7] font-sans tracking-[0.01em]">
-                      {pillar.desc}
-                    </p>
-                  </div>
+        {/* Experience */}
+        <section id="experience" aria-label="Experience" className="scroll-mt-24">
+          <ScrollReveal>
+            <SectionHead index="01" label="Chronology" title="Professional Chronology" accent={ACCENTS.cyan} href="/experience" cta="All system logs" />
+          </ScrollReveal>
+          <ScrollReveal delay={80}>
+            <ExperienceTabs />
+          </ScrollReveal>
+        </section>
+
+        {/* Education */}
+        <section id="education" aria-label="Education" className="scroll-mt-24 pt-28 sm:pt-40">
+          <ScrollReveal>
+            <SectionHead index="02" label="Academia" title="Academic Foundations & Theory" accent={ACCENTS.lime} href="/education" cta="Academic matrix" />
+          </ScrollReveal>
+          <div className="grid gap-4 lg:grid-cols-5">
+            <ScrollReveal className="h-full lg:col-span-3">
+              <Link href="/education" className="group relative block h-full min-h-[340px] overflow-hidden rounded-3xl border border-white/10">
+                <Img src={INSTITUTION.image.src} alt={INSTITUTION.image.alt} sizes="(min-width: 1024px) 60vw, 100vw" className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1.6s] ease-expo group-hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 space-y-4 p-7 sm:p-10">
+                  <span className="inline-flex items-center gap-2 rounded-full bg-black/60 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-lime-300 backdrop-blur-md">
+                    <GraduationCap className="h-3.5 w-3.5" /> {INSTITUTION.facts[2][1]}
+                  </span>
+                  <p className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">{INSTITUTION.name}</p>
+                  <p className="text-neutral-300">
+                    {INSTITUTION.facts[1][1]} · {INSTITUTION.facts[3][1]}
+                  </p>
                 </div>
-              </animated.a>
-              );
-            })}
+              </Link>
+            </ScrollReveal>
+            <ScrollReveal delay={100} className="h-full lg:col-span-2">
+              <Spotlight accent={ACCENTS.lime} className="flex h-full flex-col justify-between gap-8 p-7 sm:p-10">
+                <div className="space-y-4">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-lime-300">{ERASMUS.title}</p>
+                  <p className="text-[15px] leading-[1.8] text-neutral-300 sm:text-base">{ERASMUS.content}</p>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {['CLT', 'PPP', 'PREPARE', '5E Model'].map((c) => (
+                    <span key={c} className="rounded-full border border-lime-300/25 px-3 py-1 font-mono text-[11px] text-lime-300/90">
+                      {c}
+                    </span>
+                  ))}
+                </div>
+              </Spotlight>
+            </ScrollReveal>
+          </div>
+        </section>
+
+        {/* Projects */}
+        <section id="projects" aria-label="Projects" className="scroll-mt-24 pt-28 sm:pt-40">
+          <ScrollReveal>
+            <SectionHead index="03" label="Archive" title="Selected Works & Research" accent={ACCENTS.magenta} href="/projects" cta="Project index" />
+          </ScrollReveal>
+          <div className="grid gap-4 md:grid-cols-3">
+            {PROJECTS.map((p, i) => (
+              <ScrollReveal key={p.id} delay={i * 100} className="h-full">
+                <TiltCard href={`/projects#${p.id}`} accent={ACCENTS.magenta} className="flex h-full flex-col">
+                  <div className="relative aspect-[16/11] overflow-hidden border-b border-white/5 bg-black">
+                    <Img src={p.cover} alt={p.title} sizes="(min-width: 768px) 33vw, 100vw" className="h-full w-full object-cover object-top opacity-85 transition-all duration-[1.2s] ease-expo group-hover:scale-105 group-hover:opacity-100" />
+                    <span className="absolute left-4 top-4 rounded-full bg-black/70 px-3 py-1 font-mono text-[11px] font-bold text-fuchsia-300 backdrop-blur-md">{p.index}</span>
+                  </div>
+                  <div className="flex flex-1 flex-col gap-3 p-7">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-500">{p.kicker}</p>
+                    <h3 className="text-xl font-semibold tracking-tight text-white">{p.title}</h3>
+                    <p className="line-clamp-3 text-sm leading-relaxed text-neutral-400">{p.content}</p>
+                    <span className="mt-auto inline-flex items-center gap-2 pt-3 text-sm text-fuchsia-300">
+                      Explore module <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </span>
+                  </div>
+                </TiltCard>
+              </ScrollReveal>
+            ))}
+          </div>
+        </section>
+
+        {/* Certifications wall */}
+        <section aria-label="Certifications" className="pt-28 sm:pt-40">
+          <ScrollReveal>
+            <SectionHead index="04" label="Credentials" title="Credentials & Mastery" accent={ACCENTS.amber} href="/certifications" cta={`All ${CERTIFICATIONS.length} certificates`} />
+          </ScrollReveal>
+        </section>
+      </div>
+
+      <ScrollReveal>
+        <div className="group relative z-10 overflow-hidden py-2 [mask-image:linear-gradient(90deg,transparent,#000_8%,#000_92%,transparent)]">
+          <div className="flex w-max gap-4 animate-marquee [animation-duration:60s] group-hover:[animation-play-state:paused]">
+            {[...CERTIFICATIONS, ...CERTIFICATIONS].map((c, i) => (
+              <Link
+                key={i}
+                href="/certifications"
+                aria-hidden={i >= CERTIFICATIONS.length}
+                tabIndex={i >= CERTIFICATIONS.length ? -1 : undefined}
+                className="glass w-[280px] shrink-0 overflow-hidden rounded-2xl transition-colors hover:border-amber-300/40 sm:w-[320px]"
+              >
+                <div className="bg-black/40 p-3">
+                  <Img src={c.image} alt={c.title} sizes="320px" className="aspect-[4/3] w-full rounded-lg object-contain" />
+                </div>
+                <div className="space-y-1 p-4">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-amber-300/80">{c.issuer}</p>
+                  <p className="truncate text-sm font-medium text-white">{c.title}</p>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
+      </ScrollReveal>
+
+      {/* Contact CTA */}
+      <div className="relative z-10 mx-auto w-full max-w-screen-2xl px-5 pt-28 sm:px-8 sm:pt-40 md:px-16">
+        <ScrollReveal>
+          <section aria-label="Contact" className="relative overflow-hidden rounded-[32px] border border-white/10 bg-[#08080a] px-7 py-16 text-center sm:px-12 sm:py-24">
+            <div aria-hidden className="absolute inset-0 bg-grid opacity-60 [mask-image:radial-gradient(ellipse_at_center,#000_20%,transparent_70%)]" />
+            <div aria-hidden className="absolute left-1/2 top-0 h-64 w-[70%] -translate-x-1/2 rounded-full bg-cyan-400/10 blur-3xl" />
+            <div className="relative">
+              <div className="flex justify-center">
+                <Kicker accent={ACCENTS.cyan} pulse>
+                  Open to collaboration
+                </Kicker>
+              </div>
+              <h2 className="mx-auto mt-6 max-w-4xl text-4xl font-black leading-[0.95] tracking-[-0.05em] text-white sm:text-6xl lg:text-7xl">Let&apos;s build something that speaks clearly.</h2>
+              <p className="mx-auto mt-6 max-w-xl text-neutral-400">AI language models, modern pedagogy, or simply saying hello. My inbox is open.</p>
+              <div className="mt-10 flex flex-wrap justify-center gap-3">
+                <a href={`mailto:${PROFILE.email}`} className="inline-flex items-center gap-2.5 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-black transition-shadow hover:shadow-[0_0_40px_-6px_rgba(255,255,255,0.6)]">
+                  <Mail className="h-4 w-4" /> {PROFILE.email}
+                </a>
+                <a href={PROFILE.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2.5 rounded-full border border-white/20 px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:border-white hover:bg-white hover:text-black">
+                  <Linkedin className="h-4 w-4" /> LinkedIn
+                </a>
+              </div>
+            </div>
+          </section>
+        </ScrollReveal>
       </div>
-
-
-      {/* Stacked Chronology Sections */}
-      <div className="w-full relative z-10 bg-black/40 backdrop-blur-md">
-        <SectionDivider label="CANVAS → CHRONOLOGY" accentColor="rgba(0,229,255,0.12)" />
-        <ExperienceSection />
-
-        <SectionDivider label="CHRONOLOGY → ACADEMIA" accentColor="rgba(174,234,0,0.12)" />
-        <EducationSection />
-
-        <SectionDivider label="ACADEMIA → ARCHIVE" accentColor="rgba(213,0,247,0.12)" />
-        <ProjectsSection />
-      </div>
-
-      {/* Modern Infinite Smooth Scroll Marquee Footer (At the very bottom) */}
-      <div className="w-full py-5 bg-black/40 backdrop-blur-md border-t border-white/10 overflow-hidden group relative z-20">
-        <div className="flex whitespace-nowrap animate-marquee group-hover:[animation-play-state:paused] cursor-default">
-          {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, i) => (
-            <span key={i} className="mx-12 font-mono text-xs md:text-sm font-medium uppercase tracking-widest text-neutral-400 hover:text-white transition-colors duration-300 flex items-center gap-5">
-              {item} <span className="text-neutral-800 text-xs">//</span>
-            </span>
-          ))}
-        </div>
-      </div>
-
-      {/* Scroll To Top Button */}
-      <button
-        onClick={scrollToTop}
-        className={`fixed bottom-24 right-6 z-[100] p-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full backdrop-blur-md transition-all duration-500 text-white shadow-lg ${
-          showScrollTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'
-        }`}
-        aria-label="Scroll to top"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M12 19V5M5 12l7-7 7 7"/>
-        </svg>
-      </button>
-    </div>
+    </>
   );
 }
