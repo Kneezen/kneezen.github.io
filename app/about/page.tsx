@@ -1,224 +1,152 @@
-'use client';
-
-import { useSpring, animated } from '@react-spring/web';
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import AnimatedBorder from '../components/AnimatedBorder';
+import type { Metadata } from 'next';
+import { ArrowUpRight, Mail, MapPin } from 'lucide-react';
+import PageHero from '../components/site/PageHero';
 import ScrollReveal from '../components/ScrollReveal';
+import Spotlight from '../components/ui/Spotlight';
+import { CardTitle, Linkedin, Rule, SignOff } from '../components/ui/Bits';
+import { ACCENTS, CONTACT_BLURB, MANIFESTO, PROFILE } from '../data/profile';
 
-const ACCENT = '#ECEFF1';
+export const metadata: Metadata = {
+  title: 'About',
+  description: 'Executive profile and philosophy: decode complexity, encode clarity, and deliver meaning with zero signal loss.',
+  alternates: { canonical: '/about' },
+};
 
-const MANIFESTO = [
-  {
-    tag: 'MISSION STATEMENT',
-    content:
-      "I work at the intersection of human language and cognitive computing. Whether I'm building a classroom lesson plan or training a large language model, my approach is grounded in the same core principle: decode complexity, encode clarity, and deliver meaning with zero signal loss.",
-  },
-  {
-    tag: 'THE NARRATIVE',
-    content:
-      "My deep dive into language didn't start in a university lecture hall, but during an intensive English teaching curriculum in high school. That early exposure built a strong instinct for grammar and phonology long before I formally studied pedagogy. Today, that foundation drives a dual path: studying and applying modern teaching methodologies at TED University, while simultaneously training large language models to parse context, nuance, and advanced semantic reasoning at Outlier. Navigating daily life in Tokyo and Beijing gave me firsthand insights into cross-cultural communication, a perspective that now informs every teaching framework and AI evaluation rubric I build.",
-  },
-  {
-    tag: 'ADMINISTRATIVE TRAJECTORY',
-    content:
-      "An organizational approach driven by a systematic reliance on clear, structured lesson planning. My expertise centers on designing deeply scaffolded educational environments to balance cognitive load and maximize target-language output. By combining Vygotskyan social cognitive theories with structured, data-informed design, I treat language learning as an active, living operating system.",
-  },
-  {
-    tag: 'METHODOLOGICAL STACK',
-    content:
-      "Whether I'm optimizing an LLM or teaching a communicative language class, I rely on the same core principles: clear instructions, logical sequencing, and the elimination of ambiguity. I put this into practice through a defined methodological stack: Communicative Language Teaching (CLT) for authentic interaction, Presentation-Practice-Production (PPP) loops for systematic acquisition, the 5E Instructional Model for engaging narratives, and UNESCO-aligned PREPARE frameworks for creating accessible and effective learning materials.",
-  },
+const ACCENT = ACCENTS.silver;
+const CITIES = [
+  { city: 'Ankara', note: 'Home base' },
+  { city: 'Tokyo', note: 'Daily life' },
+  { city: 'Beijing', note: 'Daily life' },
 ];
 
 export default function AboutPage() {
-  const [loaded, setLoaded] = useState(false);
-  useEffect(() => { setLoaded(true); }, []);
-
-  const titleReveal = useSpring({
-    opacity: loaded ? 1 : 0,
-    transform: loaded ? 'translateY(0px)' : 'translateY(50px)',
-    config: { mass: 1.2, tension: 100, friction: 28 },
-    delay: 200,
-  });
-
-  const subtitleReveal = useSpring({
-    opacity: loaded ? 1 : 0,
-    transform: loaded ? 'translateY(0px)' : 'translateY(30px)',
-    config: { mass: 1, tension: 120, friction: 26 },
-    delay: 500,
-  });
-
+  const [mission, ...rest] = MANIFESTO;
   return (
-    <div className="min-h-screen w-full bg-transparent text-white font-inter flex flex-col selection:bg-white selection:text-black antialiased relative">
-      {/* GLOBAL FIXED VIDEO FLOOR */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="fixed top-0 left-0 w-screen h-screen object-cover pointer-events-none opacity-30"
-        style={{ zIndex: 0 }}
-        src="/3129595-uhd_3840_2160_30fps.mp4"
-      />
+    <>
+      <PageHero section="PHILOSOPHY" title="Executive Profile & Philosophy" subtitle="Core Philosophy" accent={ACCENT} video="about" videoOpacity={0.35} />
 
-      {/* Ambient page glow */}
-      <div
-        className="fixed top-0 left-1/2 -translate-x-1/2 w-[1400px] h-[800px] pointer-events-none glow-pulse mix-blend-screen"
-        style={{ background: `radial-gradient(ellipse at 50% 0%, ${ACCENT}09 0%, transparent 70%)` }}
-      />
+      <div className="relative z-10 mx-auto w-full max-w-screen-2xl space-y-20 px-5 sm:px-8 md:space-y-28 md:px-16">
+        {/* Mission as a pull quote */}
+        <ScrollReveal>
+          <figure className="relative">
+            <span aria-hidden className="pointer-events-none absolute -left-2 -top-10 select-none font-serif text-[9rem] leading-none text-white/[0.06] sm:-left-6 sm:-top-16 sm:text-[14rem]">
+              “
+            </span>
+            <figcaption className="mb-6 font-mono text-[11px] font-medium uppercase tracking-[0.22em] text-neutral-500">{mission.tag}</figcaption>
+            <blockquote className="max-w-5xl text-2xl font-medium leading-[1.35] tracking-[-0.02em] text-neutral-200 sm:text-3xl lg:text-[2.6rem]">
+              {mission.content.split('decode complexity, encode clarity, and deliver meaning with zero signal loss').map((part, i, arr) => (
+                <span key={i}>
+                  {part}
+                  {i < arr.length - 1 && <span className="bg-gradient-to-r from-white via-neutral-300 to-neutral-500 bg-clip-text text-transparent">decode complexity, encode clarity, and deliver meaning with zero signal loss</span>}
+                </span>
+              ))}
+            </blockquote>
+          </figure>
+        </ScrollReveal>
 
-      {/* Back Navigation */}
-      <Link
-        href="/"
-        className="fixed top-6 left-8 z-50 font-mono text-xs font-semibold tracking-wider text-neutral-400 uppercase hover-flicker transition-colors duration-500"
-      >
-        ← RETURN TO CANVAS
-      </Link>
-
-      {/* Page Header */}
-      <div className="w-full border-b border-white/10 bg-black/40 backdrop-blur-sm px-8 md:px-16 py-5 flex justify-end items-center font-mono text-xs md:text-sm text-neutral-400 font-medium tracking-widest uppercase relative z-10">
-        <div>SECTION: PHILOSOPHY</div>
-      </div>
-
-      {/* Main Content */}
-      <div className="flex-grow flex flex-col items-center justify-start px-8 md:px-16 py-28 relative z-10">
-        <div className="w-full max-w-screen-2xl space-y-24">
-          {/* Title Block */}
-          <div className="space-y-6">
-            <animated.div style={titleReveal}>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-[-0.05em] text-white leading-[0.95]">
-                Executive Profile & Philosophy
-              </h1>
-            </animated.div>
-            <animated.div style={subtitleReveal}>
-              <div className="h-px w-20" style={{ backgroundColor: `${ACCENT}40` }} />
-            </animated.div>
-            <animated.div style={subtitleReveal}>
-              <p className="font-mono text-xs md:text-sm tracking-widest text-neutral-400 font-medium uppercase">
-                Core Philosophy
-              </p>
-            </animated.div>
-          </div>
-
-          {/* Manifesto Sections */}
-          <div className="space-y-12">
-            {MANIFESTO.map((section, idx) => (
-              <ScrollReveal key={idx} delay={idx * 150}>
-                <AnimatedBorder delay={400 + idx * 250} accentColor={ACCENT}>
-                  <div className="backdrop-blur-md bg-zinc-950/40 p-10 md:p-14 lg:p-16 space-y-6">
-                    <div className="flex items-center gap-4">
-                      <div className="w-3 h-3 rounded-full shrink-0" style={{ backgroundColor: ACCENT }} />
-                      <span className="font-mono text-xl md:text-2xl lg:text-3xl tracking-[0.08em] font-bold uppercase leading-tight" style={{ color: ACCENT }}>
-                        {section.tag}
+        {/* Remaining manifesto with a sticky index */}
+        <div className="grid gap-10 lg:grid-cols-12">
+          <aside className="hidden lg:col-span-4 lg:block">
+            <div className="sticky top-32 space-y-6">
+              <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-neutral-500">Index //</p>
+              <ol className="space-y-3">
+                {rest.map((s, i) => (
+                  <li key={s.tag}>
+                    <a href={`#m-${i}`} className="group flex items-center gap-4 text-sm text-neutral-400 transition-colors hover:text-white">
+                      <span className="font-mono text-[11px] text-neutral-600">{String(i + 2).padStart(2, '0')}</span>
+                      <span className="h-px w-6 bg-white/20 transition-all duration-500 group-hover:w-10 group-hover:bg-white" />
+                      {s.tag}
+                    </a>
+                  </li>
+                ))}
+              </ol>
+              <div className="glass mt-10 rounded-2xl p-5">
+                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-500">Cross-cultural map</p>
+                <ul className="mt-4 space-y-3">
+                  {CITIES.map((c) => (
+                    <li key={c.city} className="flex items-center justify-between text-sm">
+                      <span className="flex items-center gap-2 text-neutral-200">
+                        <MapPin className="h-3.5 w-3.5 text-neutral-500" /> {c.city}
                       </span>
-                    </div>
-                    <p className="text-base md:text-lg lg:text-xl text-neutral-300 leading-[1.9] font-sans tracking-[0.01em]">
-                      {section.content}
-                    </p>
+                      <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-neutral-600">{c.note}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </aside>
+
+          <div className="space-y-6 lg:col-span-8">
+            {rest.map((section, idx) => (
+              <ScrollReveal key={section.tag} delay={idx * 80}>
+                <Spotlight accent={ACCENT} as="article" className="scroll-mt-32 p-7 sm:p-10 lg:p-12" id={`m-${idx}`}>
+                  <div className="flex items-center justify-between gap-4">
+                    <CardTitle accent={ACCENT}>{section.tag}</CardTitle>
+                    <span className="font-mono text-xs text-neutral-600">{String(idx + 2).padStart(2, '0')}</span>
                   </div>
-                </AnimatedBorder>
+                  <div className="my-6">
+                    <Rule accent={ACCENT} />
+                  </div>
+                  <p className="text-base leading-[1.85] text-neutral-300 sm:text-lg">{section.content}</p>
+                </Spotlight>
               </ScrollReveal>
             ))}
           </div>
+        </div>
 
-          {/* Contact / Social Links */}
-          <ScrollReveal delay={150}>
-            <AnimatedBorder delay={800} accentColor={ACCENT}>
-              <div className="backdrop-blur-md bg-zinc-950/40 p-10 md:p-14 lg:p-16 space-y-6">
-                <div className="flex items-center gap-4">
-                  <div className="w-3 h-3 rounded-full shrink-0" style={{ backgroundColor: ACCENT }} />
-                  <span className="font-mono text-xl md:text-2xl lg:text-3xl tracking-[0.08em] font-bold uppercase leading-tight" style={{ color: ACCENT }}>
-                    COMMUNICATIONS & NETWORK
-                  </span>
-                </div>
-                <div className="h-px w-full" style={{ backgroundColor: `${ACCENT}10` }} />
-                <p className="text-base md:text-lg text-neutral-300 leading-[1.7] font-sans tracking-[0.01em] pb-2">
-                  I'm always open to discussing new ideas, innovative projects, or future collaborations. Whether you want to talk about AI language models, modern pedagogy, or simply say hello, feel free to reach out via email or connect with me on LinkedIn.
-                </p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
-                  <a
-                    href="https://www.linkedin.com/in/ozan-özen-6a46a82a3"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group relative overflow-hidden font-mono text-sm md:text-base lg:text-lg tracking-[0.15em] font-bold px-8 py-6 uppercase text-center transition-all duration-500 flex items-center justify-center gap-3"
-                    style={{ color: ACCENT, border: `1px solid ${ACCENT}40` }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = ACCENT;
-                      e.currentTarget.style.color = '#000';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = 'transparent';
-                      e.currentTarget.style.color = ACCENT;
-                    }}
-                  >
-                    LINKEDIN // NETWORK
-                  </a>
-                  
-                  <a
-                    href="mailto:ozanozen05@gmail.com"
-                    className="group relative overflow-hidden font-mono text-sm md:text-base lg:text-lg tracking-[0.15em] font-bold px-8 py-6 uppercase text-center transition-all duration-500 flex items-center justify-center gap-3"
-                    style={{ color: ACCENT, border: `1px solid ${ACCENT}40` }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = ACCENT;
-                      e.currentTarget.style.color = '#000';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = 'transparent';
-                      e.currentTarget.style.color = ACCENT;
-                    }}
-                  >
-                    EMAIL // DIRECT CHANNEL
-                  </a>
-                </div>
+        {/* Contact + location */}
+        <div className="grid gap-6 lg:grid-cols-2">
+          <ScrollReveal>
+            <Spotlight accent={ACCENT} as="section" className="flex h-full flex-col p-7 sm:p-10 lg:p-12">
+              <CardTitle accent={ACCENT}>COMMUNICATIONS & NETWORK</CardTitle>
+              <div className="my-6">
+                <Rule accent={ACCENT} />
               </div>
-            </AnimatedBorder>
+              <p className="text-base leading-[1.8] text-neutral-300 sm:text-lg">{CONTACT_BLURB}</p>
+              <div className="mt-auto grid gap-3 pt-10 sm:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2">
+                <a href={PROFILE.linkedin} target="_blank" rel="noopener noreferrer" className="btn-accent flex items-center justify-between gap-3 rounded-2xl px-6 py-5 font-mono text-xs font-bold uppercase tracking-[0.15em]" style={{ '--btn': ACCENT } as React.CSSProperties}>
+                  <span className="flex items-center gap-3">
+                    <Linkedin className="h-4 w-4" /> LinkedIn // Network
+                  </span>
+                  <ArrowUpRight className="h-4 w-4" />
+                </a>
+                <a href={`mailto:${PROFILE.email}`} className="btn-accent flex items-center justify-between gap-3 rounded-2xl px-6 py-5 font-mono text-xs font-bold uppercase tracking-[0.15em]" style={{ '--btn': ACCENT } as React.CSSProperties}>
+                  <span className="flex items-center gap-3">
+                    <Mail className="h-4 w-4" /> Email // Direct channel
+                  </span>
+                  <ArrowUpRight className="h-4 w-4" />
+                </a>
+              </div>
+            </Spotlight>
           </ScrollReveal>
 
-          {/* Location Block */}
-          <ScrollReveal delay={200}>
-            <AnimatedBorder delay={900} accentColor={ACCENT}>
-              <div className="backdrop-blur-md bg-zinc-950/40 p-10 md:p-14 lg:p-16 space-y-6">
-                <div className="flex items-center gap-4">
-                  <div className="w-3 h-3 rounded-full shrink-0" style={{ backgroundColor: ACCENT }} />
-                  <span className="font-mono text-xl md:text-2xl lg:text-3xl tracking-[0.08em] font-bold uppercase leading-tight" style={{ color: ACCENT }}>
-                    LOCATION
-                  </span>
-                </div>
-                <div className="h-px w-full" style={{ backgroundColor: `${ACCENT}10` }} />
-                <div className="w-full h-64 md:h-80 overflow-hidden" style={{ border: `1px solid ${ACCENT}40` }}>
-                  <iframe 
-                    src="https://maps.google.com/maps?q=Ankara&t=&z=11&ie=UTF8&iwloc=&output=embed" 
-                    width="100%" 
-                    height="100%" 
-                    style={{ border: 0, filter: 'invert(100%) hue-rotate(180deg) contrast(90%)' }} 
-                    allowFullScreen={false} 
-                    loading="lazy" 
-                    referrerPolicy="no-referrer-when-downgrade"
-                  />
-                </div>
+          <ScrollReveal delay={100}>
+            <Spotlight accent={ACCENT} as="section" className="flex h-full flex-col p-7 sm:p-10 lg:p-12">
+              <div className="flex items-center justify-between">
+                <CardTitle accent={ACCENT}>LOCATION</CardTitle>
+                <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-neutral-500">{PROFILE.locationFull}</span>
               </div>
-            </AnimatedBorder>
-          </ScrollReveal>
-
-          {/* Signature Divider */}
-          <ScrollReveal delay={200}>
-            <div className="flex items-center gap-6 pt-8">
-              <div className="h-px flex-grow" style={{ backgroundColor: `${ACCENT}15` }} />
-              <span className="font-mono text-xs md:text-sm tracking-widest text-neutral-400 font-medium uppercase">
-                END_TRANSMISSION // PHILOSOPHY_MODULE
-              </span>
-              <div className="h-px flex-grow" style={{ backgroundColor: `${ACCENT}15` }} />
-            </div>
+              <div className="my-6">
+                <Rule accent={ACCENT} />
+              </div>
+              <div className="relative min-h-64 flex-1 overflow-hidden rounded-2xl border border-white/10">
+                <iframe
+                  title="Map of Ankara"
+                  src="https://maps.google.com/maps?q=Ankara&t=&z=11&ie=UTF8&iwloc=&output=embed"
+                  className="absolute inset-0 h-full w-full"
+                  style={{ border: 0, filter: 'invert(100%) hue-rotate(180deg) contrast(90%) grayscale(30%)' }}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+              </div>
+            </Spotlight>
           </ScrollReveal>
         </div>
-      </div>
 
-      {/* Footer */}
-      <div className="w-full border-t border-white/10 bg-black/40 backdrop-blur-sm px-8 md:px-16 py-5 flex justify-between items-center font-mono text-xs font-semibold tracking-wider text-neutral-400 uppercase relative z-10">
-        <div>ABOUT // CORE ARCHITECTURE</div>
-        <div>ANKARA, TR // 2026</div>
+        <ScrollReveal>
+          <SignOff accent={ACCENT}>END_TRANSMISSION // PHILOSOPHY_MODULE</SignOff>
+        </ScrollReveal>
       </div>
-    </div>
+    </>
   );
 }

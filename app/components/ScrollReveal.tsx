@@ -83,7 +83,7 @@ export default function ScrollReveal({
   return (
     <div
       ref={ref}
-      className={`transition-all ease-expo ${className}`}
+      className={`reveal transition-all ease-expo ${className}`}
       style={{
         ...currentStyle,
         transitionDuration: config.duration,
