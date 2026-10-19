@@ -17,7 +17,14 @@ export default function MediaGrid({ items, accent, layout }: MediaGridProps) {
     <div className={`grid grid-cols-1 gap-6 ${cols}`}>
       {items.map((img) => (
         <figure key={img.src} className="flex flex-col gap-3">
-          <MediaLabel accent={accent}>{img.label}</MediaLabel>
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <MediaLabel accent={accent}>{img.label}</MediaLabel>
+            {img.href && (
+              <a href={img.href} target="_blank" rel="noopener noreferrer" className="font-mono text-[11px] uppercase tracking-[0.16em] text-neutral-400 transition-colors hover:text-white">
+                {new URL(img.href).hostname.replace(/^www\./, '')} ↗
+              </a>
+            )}
+          </div>
           <div className="overflow-hidden rounded-2xl border bg-black/40 shadow-xl shadow-black/40" style={{ borderColor: `${accent}26` }}>
             <ImageLightbox src={img.src} alt={img.alt} gallery={items}>
               <Img src={img.src} alt={img.alt} sizes={sizes} className="h-auto w-full object-contain transition-transform duration-[1.2s] ease-expo group-hover/lightbox:scale-[1.02]" />

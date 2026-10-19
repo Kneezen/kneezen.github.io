@@ -9,7 +9,7 @@ import { ACCENTS, TIMELINE } from '../data/profile';
 
 export const metadata: Metadata = {
   title: 'Experience',
-  description: 'Professional chronology: AI model training and administration at Outlier, technology journalism at Technopat, and examination invigilation at British Side.',
+  description: 'Professional chronology: Google Gemini model training at Invisible Technologies, audio transcription for AI at Alignerr, AI model training and administration at Outlier, technology journalism at Technopat, and examination invigilation at British Side.',
   alternates: { canonical: '/experience' },
 };
 
@@ -74,9 +74,11 @@ export default function ExperiencePage() {
                       ))}
                     </div>
                   </div>
-                  <div className="px-7 pb-7 sm:px-10 sm:pb-10 lg:px-14 lg:pb-14">
-                    <MediaGrid items={entry.media} accent={ACCENT} layout={entry.layout} />
-                  </div>
+                  {entry.media.length > 0 && (
+                    <div className="px-7 pb-7 sm:px-10 sm:pb-10 lg:px-14 lg:pb-14">
+                      <MediaGrid items={entry.media} accent={ACCENT} layout={entry.layout} />
+                    </div>
+                  )}
                 </Spotlight>
               </ScrollReveal>
             </li>

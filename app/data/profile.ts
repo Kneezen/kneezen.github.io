@@ -15,6 +15,8 @@ export interface Media {
   label: string;
   src: string;
   alt: string;
+  /** Optional public page the image links to (e.g. a company's homepage). */
+  href?: string;
 }
 
 export const PROFILE = {
@@ -103,6 +105,36 @@ export interface TimelineEntry {
 
 export const TIMELINE: TimelineEntry[] = [
   {
+    id: 'invisible',
+    company: 'Invisible Technologies',
+    role: 'AI Model Trainer, Google Gemini',
+    tag: 'INVISIBLE TECHNOLOGIES // AI MODEL TRAINER',
+    period: '2026 – Present',
+    status: 'ACTIVE',
+    content:
+      'Develop and train Google Gemini models through Meridial, Invisible Technologies\' expert network, contributing human expertise to the data and evaluation work that shapes how those models understand and respond to people.',
+    metrics: ['Google Gemini', 'Model Development', 'Model Training'],
+    layout: 'stack',
+    media: [
+      { label: 'PUBLIC INTERFACE // MERIDIAL_BY_INVISIBLE', src: '/meridial-invisible-homepage.png', alt: 'Meridial by Invisible homepage', href: 'https://www.meridial.ai/' },
+    ],
+  },
+  {
+    id: 'alignerr',
+    company: 'Alignerr',
+    role: 'Audio Transcriptionist',
+    tag: 'ALIGNERR // AUDIO TRANSCRIPTIONIST',
+    period: '2026 – Present',
+    status: 'ACTIVE',
+    content:
+      'Transcribe audio recordings to build training data that improves how AI models comprehend spoken language.',
+    metrics: ['Audio Transcription', 'Speech Comprehension', 'AI Training Data'],
+    layout: 'stack',
+    media: [
+      { label: 'PUBLIC INTERFACE // ALIGNERR_BY_LABELBOX', src: '/alignerr-homepage.png', alt: 'Alignerr homepage', href: 'https://www.alignerr.com/' },
+    ],
+  },
+  {
     id: 'outlier',
     company: 'Outlier',
     role: 'Administrator & AI Model Trainer',
@@ -159,7 +191,7 @@ export const INSTITUTION = {
   facts: [
     ['Location', 'Ankara, Türkiye'],
     ['Program', 'English Language Teaching (ELT)'],
-    ['Status', '3rd-Year Undergraduate'],
+    ['Status', '4th-Year Undergraduate'],
     ['Track', 'Teacher Education & Applied Linguistics'],
   ] as [string, string][],
   image: { label: 'ARTIFACT_IMG_01 // CAMPUS_OVERVIEW', src: '/image_d874e4.jpg', alt: 'TED University campus' },
@@ -394,7 +426,7 @@ export const CV_SECTIONS: { category: string; entries: CvEntry[] }[] = [
     entries: [
       { label: 'Institution', value: 'TED University, Ankara, Türkiye' },
       { label: 'Program', value: 'English Language Teaching (ELT)' },
-      { label: 'Status', value: '3rd-Year Undergraduate' },
+      { label: 'Status', value: '4th-Year Undergraduate' },
       { label: 'Track', value: 'Teacher Education & Applied Linguistics' },
       { label: 'Mobility', value: 'Erasmus+ Cleared (2025–2026)' },
       { label: 'Society', value: 'Directorate of Social and Cultural Affairs Engagement' },
@@ -403,6 +435,8 @@ export const CV_SECTIONS: { category: string; entries: CvEntry[] }[] = [
   {
     category: 'EXPERIENCE',
     entries: [
+      { label: 'Invisible Technologies', value: 'AI Model Trainer, Google Gemini (2026–Present)' },
+      { label: 'Alignerr', value: 'Audio Transcriptionist (2026–Present)' },
       { label: 'Outlier', value: 'Project Administrator (2024–Present)' },
       { label: 'Outlier', value: 'AI Language Model Trainer (2024–Present)' },
       { label: 'Technopat', value: 'Technology Journalist (2024–2026)' },
