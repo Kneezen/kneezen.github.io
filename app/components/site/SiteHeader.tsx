@@ -57,7 +57,7 @@ export default function SiteHeader() {
         className={`no-print fixed inset-x-0 top-0 z-[90] transition-transform duration-500 ease-expo ${hidden && !menuOpen ? '-translate-y-full' : 'translate-y-0'}`}
       >
         <div className={`mx-auto flex max-w-screen-2xl items-center justify-between gap-4 px-4 transition-all duration-500 ease-expo sm:px-8 ${scrolled ? 'py-3' : 'py-5'}`}>
-          <Link href="/" aria-label={`${PROFILE.name}, home`} className="group flex items-center gap-3">
+          <Link href="/" data-egg="logo" aria-label={`${PROFILE.name}, home`} className="group flex items-center gap-3">
             <span className="relative grid h-10 w-10 place-items-center overflow-hidden rounded-full border border-white/15 bg-white/[0.04] backdrop-blur-md transition-colors duration-500 group-hover:border-white/40">
               <span className="font-mono text-[13px] font-bold tracking-tight">OÖ</span>
               <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-full" />

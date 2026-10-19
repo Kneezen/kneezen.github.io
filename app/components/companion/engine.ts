@@ -91,6 +91,16 @@ export function localReply(raw: string): Reply {
     return { text: t(`Taking you to ${target.label[0]}…`, `Seni ${target.label[1]} sayfasına götürüyorum…`), navigate: { path: target.path, hash } };
   }
 
+  // Easter eggs
+  if (has(q, ['easter egg', 'secret', 'hidden', 'cat', 'kitty', 'meow', 'kedi', 'gizli', 'surpriz', 'miyav'])) {
+    return {
+      text: t(
+        "Between us: there's a cat hiding on the home page. Move your mouse over the big hero (on a phone, press and hold, then drag) to find it, and hover Ozan's name to see who's peeking. Typing **meow** anywhere starts a parade, and clicking the OÖ logo five times turns on paw-print mode. 🐾",
+        'Aramızda kalsın: ana sayfada saklanan bir kedi var. Fareyi büyük giriş alanının üzerinde gezdir (telefonda basılı tut ve sürükle), Ozan\'ın isminin üzerine gel ve kimin baktığını gör. Herhangi bir yerde **miyav** yazarsan kedi geçidi başlar, OÖ logosuna beş kez tıklarsan pati izi modu açılır. 🐾'
+      ),
+    };
+  }
+
   // Greetings & identity
   if (/^(hi|hello|hey|yo|selam|merhaba|sa|hello there|good (morning|evening|afternoon))\b/.test(q) && q.length < 40) {
     return {

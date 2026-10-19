@@ -7,6 +7,7 @@ import SiteHeader from './components/site/SiteHeader';
 import SiteFooter from './components/site/SiteFooter';
 import CommandPalette from './components/site/CommandPalette';
 import CompanionMount from './components/CompanionMount';
+import Delight from './components/fun/Delight';
 import { PROFILE } from './data/profile';
 
 const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin', 'latin-ext'] });
@@ -80,6 +81,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <SiteFooter />
         <CommandPalette />
         <CompanionMount />
+        <Delight />
         <div className="grain" aria-hidden />
       </body>
     </html>
