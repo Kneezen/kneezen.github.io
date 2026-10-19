@@ -119,10 +119,8 @@ body {
   box-shadow: 0 0 32px -6px var(--btn);
 }
 
-/* Hero flashlight: only painted while a fine pointer is over the hero */
-@media (pointer: fine) {
-  [data-flash="on"] .cat-light { display: block; }
-}
+/* Hero flashlight: only painted while a pointer (or a held finger) is over the hero */
+[data-flash="on"] .cat-light { display: block; }
 
 /* Film grain overlay */
 .grain {
@@ -329,4 +327,68 @@ body {
   .print-plain a { text-decoration: underline; }
   .print-break { break-inside: avoid; }
   .reveal { opacity: 1 !important; transform: none !important; filter: none !important; clip-path: none !important; }
+}
+
+/* ───────── Easter eggs ───────── */
+.spark {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  will-change: transform, opacity;
+}
+.paw {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  color: #00e5ff;
+  transform: translate(-50%, -50%) rotate(var(--r, 0deg));
+}
+.cat-runner {
+  transform: translateX(110vw);
+  animation-name: cat-run;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+  will-change: transform;
+}
+@keyframes cat-run {
+  from { transform: translateX(110vw); }
+  to { transform: translateX(-40vw); }
+}
+.cat-runner .cat-leg { transform-box: fill-box; transform-origin: 50% 0; animation: cat-leg 0.32s ease-in-out infinite alternate; }
+.cat-runner .cat-leg-b { animation-direction: alternate-reverse; }
+@keyframes cat-leg {
+  from { transform: rotate(28deg); }
+  to { transform: rotate(-28deg); }
+}
+.cat-runner svg { animation: cat-bob 0.32s ease-in-out infinite alternate; }
+@keyframes cat-bob {
+  from { transform: translateY(0); }
+  to { transform: translateY(-5px); }
+}
+.cat-tail { transform-box: fill-box; transform-origin: 0% 100%; animation: cat-tail 0.64s ease-in-out infinite alternate; }
+@keyframes cat-tail {
+  from { transform: rotate(-12deg); }
+  to { transform: rotate(14deg); }
+}
+.cat-meow { animation: meow-pop 1.4s cubic-bezier(.16,1,.3,1) both; }
+@keyframes meow-pop {
+  0% { opacity: 0; transform: scale(.4) translateY(8px); }
+  20%, 70% { opacity: 1; transform: scale(1) translateY(0); }
+  100% { opacity: 0; transform: scale(.9) translateY(-6px); }
+}
+.cat-blink { transform-box: fill-box; transform-origin: center; animation: cat-blink 4.5s infinite; }
+@keyframes cat-blink {
+  0%, 92%, 100% { transform: scaleY(1); }
+  95% { transform: scaleY(0.1); }
+}
+.toast-in { animation: toast-in 3.2s cubic-bezier(.16,1,.3,1) both; }
+@keyframes toast-in {
+  0% { opacity: 0; transform: translateY(-12px) scale(.96); }
+  10%, 85% { opacity: 1; transform: none; }
+  100% { opacity: 0; transform: translateY(-6px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cat-runner { animation-duration: 0.01s !important; display: none; }
+  .cat-blink, .cat-tail, .cat-runner .cat-leg { animation: none; }
 }

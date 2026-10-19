@@ -6,9 +6,10 @@ import { ArrowDown, ArrowRight, Sparkles } from 'lucide-react';
 import { PROFILE } from '../../data/profile';
 import BackgroundVideo from '../ui/BackgroundVideo';
 import NeuralField from './NeuralField';
-import Scramble from './Scramble';
 import RoleTicker from './RoleTicker';
 import { asset } from '../../data/asset';
+import Magnetic from '../fun/Magnetic';
+import NameWithCat from '../fun/NameWithCat';
 
 function useClock() {
   const [time, setTime] = useState('');
@@ -33,29 +34,85 @@ export default function Hero() {
   const stage = useRef<HTMLDivElement>(null);
 
   // The original site's cat lives on as a flashlight easter egg: move the cursor across the hero to find it.
+  // On touch screens, press and hold the hero, then drag: the hold locks scrolling so the light can follow your finger.
   useEffect(() => {
     const el = stage.current;
-    if (!el || !window.matchMedia('(pointer: fine)').matches) return;
+    if (!el) return;
     let raf = 0;
-    const onMove = (e: PointerEvent) => {
+    const light = (x: number, y: number, radius: number) => {
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(() => {
         const r = el.getBoundingClientRect();
-        el.style.setProperty('--fx', `${e.clientX - r.left}px`);
-        el.style.setProperty('--fy', `${e.clientY - r.top}px`);
-        el.style.setProperty('--fr', '260px');
+        el.style.setProperty('--fx', `${x - r.left}px`);
+        el.style.setProperty('--fy', `${y - r.top}px`);
+        el.style.setProperty('--fr', `${radius}px`);
         el.dataset.flash = 'on';
       });
     };
-    const onLeave = () => {
+    const off = () => {
+      cancelAnimationFrame(raf);
       el.style.setProperty('--fr', '0px');
       el.dataset.flash = 'off';
     };
+
+    const onMove = (e: PointerEvent) => {
+      if (e.pointerType === 'mouse') light(e.clientX, e.clientY, 260);
+    };
+    const onLeave = (e: PointerEvent) => {
+      if (e.pointerType === 'mouse') off();
+    };
+
+    let hold = 0;
+    let armed = false;
+    let start = { x: 0, y: 0 };
+    const isControl = (t: EventTarget | null) => t instanceof Element && !!t.closest('a,button');
+    const onTouchStart = (e: TouchEvent) => {
+      if (e.touches.length !== 1 || isControl(e.target)) return;
+      const t = e.touches[0];
+      start = { x: t.clientX, y: t.clientY };
+      window.clearTimeout(hold);
+      hold = window.setTimeout(() => {
+        armed = true;
+        light(start.x, start.y, 150);
+        navigator.vibrate?.(8);
+      }, 260);
+    };
+    const onTouchMove = (e: TouchEvent) => {
+      const t = e.touches[0];
+      if (armed) {
+        e.preventDefault();
+        light(t.clientX, t.clientY, 150);
+      } else if (Math.hypot(t.clientX - start.x, t.clientY - start.y) > 10) {
+        window.clearTimeout(hold);
+      }
+    };
+    const onMenu = (e: Event) => {
+      if (armed) e.preventDefault();
+    };
+    const onTouchEnd = () => {
+      window.clearTimeout(hold);
+      if (armed) {
+        armed = false;
+        window.setTimeout(off, 700);
+      }
+    };
+
     el.addEventListener('pointermove', onMove);
     el.addEventListener('pointerleave', onLeave);
+    el.addEventListener('touchstart', onTouchStart, { passive: true });
+    el.addEventListener('touchmove', onTouchMove, { passive: false });
+    el.addEventListener('touchend', onTouchEnd);
+    el.addEventListener('touchcancel', onTouchEnd);
+    el.addEventListener('contextmenu', onMenu);
     return () => {
       el.removeEventListener('pointermove', onMove);
       el.removeEventListener('pointerleave', onLeave);
+      el.removeEventListener('touchstart', onTouchStart);
+      el.removeEventListener('touchmove', onTouchMove);
+      el.removeEventListener('touchend', onTouchEnd);
+      el.removeEventListener('touchcancel', onTouchEnd);
+      el.removeEventListener('contextmenu', onMenu);
+      window.clearTimeout(hold);
       cancelAnimationFrame(raf);
     };
   }, []);
@@ -64,7 +121,7 @@ export default function Hero() {
     <section aria-label="Introduction" className="relative px-3 pt-24 sm:px-5 sm:pt-28">
       <div
         ref={stage}
-        className="relative isolate mx-auto flex min-h-[calc(100svh-7rem)] max-w-screen-2xl flex-col overflow-hidden rounded-[28px] border border-white/10 bg-[#070708] sm:rounded-[36px]"
+        className="relative isolate mx-auto flex min-h-[calc(100svh-7rem)] select-none [-webkit-touch-callout:none] max-w-screen-2xl flex-col overflow-hidden rounded-[28px] border border-white/10 bg-[#070708] sm:rounded-[36px]"
         style={{ '--fx': '50%', '--fy': '50%', '--fr': '0px' } as React.CSSProperties}
       >
         <BackgroundVideo name="hero" opacity={0.55} fixed={false} />
@@ -129,7 +186,7 @@ export default function Hero() {
           </Link>
 
           <h1 className="text-[clamp(3.2rem,13vw,11rem)] font-black leading-[0.88] tracking-[-0.06em] text-white">
-            <Scramble text={PROFILE.name} delay={200} duration={1100} />
+            <NameWithCat />
           </h1>
 
           <p className="mt-6 font-mono text-sm uppercase tracking-[0.2em] text-cyan-200/90 sm:text-base">
@@ -140,8 +197,8 @@ export default function Hero() {
 
           <div className="mt-10 flex flex-wrap justify-center gap-3">
             {CTAS.map((c, i) => (
+              <Magnetic key={c.href}>
               <Link
-                key={c.href}
                 href={c.href}
                 className={`group inline-flex items-center gap-3 rounded-full px-6 py-3 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] transition-all duration-500 sm:text-xs ${
                   i === 0 ? 'bg-white text-black hover:shadow-[0_0_40px_-6px_rgba(255,255,255,0.6)]' : 'border border-white/20 text-white hover:border-white hover:bg-white hover:text-black'
@@ -150,6 +207,7 @@ export default function Hero() {
                 <span className={`h-1.5 w-1.5 rounded-full transition-colors duration-500 ${i === 0 ? 'bg-black' : 'bg-white group-hover:bg-black'}`} />
                 {c.label}
               </Link>
+              </Magnetic>
             ))}
             <button
               type="button"
@@ -164,6 +222,7 @@ export default function Hero() {
         {/* Scroll cue */}
         <div className="relative z-10 grid grid-cols-1 items-center border-t border-white/[0.07] px-5 py-4 font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-500 sm:grid-cols-3 sm:px-8">
           <span className="hidden sm:inline">Decode complexity // Encode clarity</span>
+          <span className="mb-3 text-center text-neutral-600 sm:hidden [@media(pointer:fine)]:hidden">Psst… hold &amp; drag the screen</span>
           <a href="#pillars" className="group flex items-center justify-center gap-3 transition-colors hover:text-white">
             Scroll
             <span className="relative block h-7 w-4 overflow-hidden rounded-full border border-white/20">
