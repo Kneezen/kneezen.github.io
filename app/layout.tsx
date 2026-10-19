@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   description,
   applicationName: `${PROFILE.name} Portfolio`,
   authors: [{ name: PROFILE.name, url: PROFILE.siteUrl }],
-  keywords: ['Ozan Özen', 'English Language Teaching', 'ELT', 'TED University', 'AI Model Trainer', 'Outlier', 'LLM training', 'Tech Journalist', 'Technopat', 'EdTech', 'Ankara'],
+  keywords: ['Ozan Özen', 'English Language Teaching', 'ELT', 'TED University', 'AI Model Trainer', 'Outlier', 'Alignerr', 'Invisible Technologies', 'LLM training', 'Tech Journalist', 'Technopat', 'EdTech', 'Ankara'],
   openGraph: {
     type: 'website',
     url: '/',
@@ -57,7 +57,11 @@ const personJsonLd = {
   jobTitle: PROFILE.roles,
   address: { '@type': 'PostalAddress', addressLocality: 'Ankara', addressCountry: 'TR' },
   alumniOf: { '@type': 'CollegeOrUniversity', name: 'TED University' },
-  worksFor: [{ '@type': 'Organization', name: 'Outlier' }],
+  worksFor: [
+    { '@type': 'Organization', name: 'Outlier' },
+    { '@type': 'Organization', name: 'Invisible Technologies' },
+    { '@type': 'Organization', name: 'Alignerr' },
+  ],
   knowsAbout: ['English Language Teaching', 'Large Language Models', 'Prompt Engineering', 'Technical Journalism', 'Educational Technology'],
   sameAs: [PROFILE.linkedin],
 };

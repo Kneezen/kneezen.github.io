@@ -89,6 +89,12 @@
     "sm": "/img/web-2-0-800.webp",
     "lg": "/img/web-2-0-1600.webp"
   },
+  "/alignerr-homepage.png": {
+    "w": 2940,
+    "h": 1384,
+    "sm": "/img/alignerr-homepage-800.webp",
+    "lg": "/img/alignerr-homepage-1600.webp"
+  },
   "/houston_web2_certificate.png": {
     "w": 1024,
     "h": 793,
@@ -124,6 +130,12 @@
     "h": 791,
     "sm": "/img/linkedin-critical-thinking-800.webp",
     "lg": "/img/linkedin-critical-thinking-1600.webp"
+  },
+  "/meridial-invisible-homepage.png": {
+    "w": 2940,
+    "h": 1426,
+    "sm": "/img/meridial-invisible-homepage-800.webp",
+    "lg": "/img/meridial-invisible-homepage-1600.webp"
   },
   "/og.png": {
     "w": 1200,

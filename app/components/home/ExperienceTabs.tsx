@@ -27,7 +27,7 @@ export default function ExperienceTabs() {
               aria-selected={on}
               aria-controls="exp-panel"
               onClick={() => setActive(i)}
-              className={`group relative min-w-[230px] shrink-0 overflow-hidden rounded-2xl border p-5 text-left transition-all duration-500 ease-expo lg:min-w-0 ${on ? 'border-cyan-300/40 bg-cyan-300/[0.06]' : 'border-white/10 bg-white/[0.02] hover:border-white/20'}`}
+              className={`group relative min-w-[230px] shrink-0 overflow-hidden rounded-2xl border p-5 text-left lg:px-5 lg:py-4 transition-all duration-500 ease-expo lg:min-w-0 ${on ? 'border-cyan-300/40 bg-cyan-300/[0.06]' : 'border-white/10 bg-white/[0.02] hover:border-white/20'}`}
             >
               <span className="absolute inset-y-0 left-0 w-0.5 origin-top transition-transform duration-700 ease-expo" style={{ background: ACCENT, transform: `scaleY(${on ? 1 : 0})` }} />
               <span className="flex items-center justify-between gap-3">
@@ -35,14 +35,14 @@ export default function ExperienceTabs() {
                 {t.status === 'ACTIVE' && <span className="h-1.5 w-1.5 animate-pulse rounded-full" style={{ backgroundColor: ACCENT }} />}
               </span>
               <span className="mt-1 block text-sm text-neutral-500">{t.role}</span>
-              <span className="mt-3 block font-mono text-[11px] uppercase tracking-[0.15em] text-neutral-500">{t.period}</span>
+              <span className="mt-2 block font-mono text-[11px] uppercase tracking-[0.15em] text-neutral-500">{t.period}</span>
             </button>
           );
         })}
       </div>
 
       <div id="exp-panel" role="tabpanel" aria-labelledby={`exp-tab-${entry.id}`} className="glass relative overflow-hidden rounded-3xl lg:col-span-8">
-        <div key={entry.id} className="grid animate-[lightboxImageIn_600ms_var(--ease-expo)_both] md:grid-cols-5">
+        <div key={entry.id} className="grid h-full animate-[lightboxImageIn_600ms_var(--ease-expo)_both] md:grid-cols-5">
           <div className="space-y-6 p-7 sm:p-9 md:col-span-3">
             <p className="font-mono text-[11px] uppercase tracking-[0.2em]" style={{ color: ACCENT }}>
               {entry.tag}
@@ -61,9 +61,20 @@ export default function ExperienceTabs() {
             </Link>
           </div>
           <div className="flex flex-col justify-center gap-4 border-t border-white/5 bg-black/30 p-6 md:col-span-2 md:border-l md:border-t-0">
+            {entry.media.length === 0 && (
+              <div className="grid aspect-[4/3] place-items-center rounded-xl border border-white/10 bg-black/40 p-6 text-center">
+                <span className="text-2xl font-semibold tracking-tight text-white/80">{entry.company}</span>
+              </div>
+            )}
             {entry.media.map((m) => (
               <div key={m.src} className="overflow-hidden rounded-xl border border-white/10 bg-black/40">
-                <Img src={m.src} alt={m.alt} sizes="(min-width: 1024px) 25vw, 100vw" className="h-auto w-full object-contain" />
+                {m.href ? (
+                  <a href={m.href} target="_blank" rel="noopener noreferrer" aria-label={`${m.alt} (opens ${new URL(m.href).hostname})`}>
+                    <Img src={m.src} alt={m.alt} sizes="(min-width: 1024px) 25vw, 100vw" className="h-auto w-full object-contain transition-opacity hover:opacity-80" />
+                  </a>
+                ) : (
+                  <Img src={m.src} alt={m.alt} sizes="(min-width: 1024px) 25vw, 100vw" className="h-auto w-full object-contain" />
+                )}
               </div>
             ))}
           </div>
