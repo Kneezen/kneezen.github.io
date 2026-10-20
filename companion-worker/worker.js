@@ -25,7 +25,7 @@ Ozan works at the intersection of human language and cognitive computing. His mi
 - Engagement: Directorate of Social and Cultural Affairs Engagement
 
 --- PROFESSIONAL EXPERIENCE ---
-- Invisible Technologies (2026 - Present): AI Model Trainer. Develops and trains Google Gemini models via Meridial.
+- Invisible Technologies (2026 - Present): AI Model Trainer. Develops and trains AI models via Meridial.
 - Alignerr (2026 - Present): Audio Transcriptionist. Transcribes audio to improve AI models' spoken-language comprehension.
 - Outlier (2024 - Present): Project Administrator & AI Language Model Trainer. Evaluates datasets for high-tier LLMs (Milky Way & Lightspeed frameworks). Sub-1% error tolerance.
 - Technopat (2024 - 2026): Technology Journalist. Wrote RTX benchmarking guides, Fedora Linux kernel optimization, and GPU analytics.

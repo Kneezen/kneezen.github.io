@@ -9,7 +9,7 @@ import { ACCENTS, TIMELINE } from '../data/profile';
 
 export const metadata: Metadata = {
   title: 'Experience',
-  description: 'Professional chronology: Google Gemini model training at Invisible Technologies, audio transcription for AI at Alignerr, AI model training and administration at Outlier, technology journalism at Technopat, and examination invigilation at British Side.',
+  description: 'Professional chronology: AI model training at Invisible Technologies, audio transcription for AI at Alignerr, AI model training and administration at Outlier, technology journalism at Technopat, and examination invigilation at British Side.',
   alternates: { canonical: '/experience' },
 };
 
