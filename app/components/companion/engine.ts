@@ -53,7 +53,7 @@ const NAV_VERBS = [
 const PAGE_KEYS: { path: Route; keys: string[]; label: [string, string] }[] = [
   { path: '/cv', keys: ['cv', 'resume', 'résumé', 'vitae', 'master matrix', 'ozgecmis'], label: ['CV (Master Matrix)', 'CV (Master Matrix)'] },
   { path: '/certifications', keys: ['certif', 'credential', 'badge', 'sertifika', 'belge'], label: ['Certifications', 'Sertifikalar'] },
-  { path: '/experience', keys: ['experience', 'work', 'job', 'career', 'chronology', 'outlier', 'alignerr', 'invisible', 'meridial', 'gemini', 'technopat', 'british side', 'deneyim', 'kariyer'], label: ['Experience', 'Deneyim'] },
+  { path: '/experience', keys: ['experience', 'work', 'job', 'career', 'chronology', 'outlier', 'alignerr', 'invisible', 'meridial', 'technopat', 'british side', 'deneyim', 'kariyer'], label: ['Experience', 'Deneyim'] },
   { path: '/projects', keys: ['project', 'portfolio', 'works', 'race engine', 'backpack', 'whose is it', 'archive', 'proje'], label: ['Projects', 'Projeler'] },
   { path: '/education', keys: ['education', 'university', 'school', 'academ', 'ted', 'erasmus', 'egitim', 'universite', 'okul'], label: ['Education', 'Eğitim'] },
   { path: '/about', keys: ['about', 'philosophy', 'bio', 'story', 'mission', 'hakkinda', 'felsefe'], label: ['About', 'Hakkında'] },
@@ -241,8 +241,8 @@ export function localReply(raw: string): Reply {
   if (has(q, ['who is', 'about ozan', 'tell me about', 'kimdir', 'kim', 'hakkinda', 'introduce', 'summary', 'ozet'])) {
     return {
       text: t(
-        `**${PROFILE.name}** is an English Language Educator, AI Model Trainer and Tech Journalist based in Ankara. He studies ELT at TED University (4th year, Erasmus+ cleared), trains and evaluates large language models at Outlier, develops and trains Google Gemini models at Invisible Technologies, transcribes audio for AI speech comprehension at Alignerr, and wrote hardware and Linux deep-dives for Technopat.\n\n${MANIFESTO[0].content}`,
-        `**${PROFILE.name}**, Ankara'da yaşayan bir İngilizce öğretmeni adayı, yapay zekâ model eğitmeni ve teknoloji gazetecisi. TED Üniversitesi'nde İngiliz Dili Eğitimi okuyor (4. sınıf, Erasmus+ kabulü var), Outlier'da büyük dil modellerini eğitip değerlendiriyor, Invisible Technologies'te Google Gemini modellerini geliştirip eğitiyor, Alignerr'da yapay zekânın konuşmayı anlaması için ses transkripsiyonu yapıyor ve Technopat için donanım ve Linux yazıları yazdı.`
+        `**${PROFILE.name}** is an English Language Educator, AI Model Trainer and Tech Journalist based in Ankara. He studies ELT at TED University (4th year, Erasmus+ cleared), trains and evaluates large language models at Outlier, develops and trains AI models at Invisible Technologies, transcribes audio for AI speech comprehension at Alignerr, and wrote hardware and Linux deep-dives for Technopat.\n\n${MANIFESTO[0].content}`,
+        `**${PROFILE.name}**, Ankara'da yaşayan bir İngilizce öğretmeni adayı, yapay zekâ model eğitmeni ve teknoloji gazetecisi. TED Üniversitesi'nde İngiliz Dili Eğitimi okuyor (4. sınıf, Erasmus+ kabulü var), Outlier'da büyük dil modellerini eğitip değerlendiriyor, Invisible Technologies'te yapay zekâ modellerini geliştirip eğitiyor, Alignerr'da yapay zekânın konuşmayı anlaması için ses transkripsiyonu yapıyor ve Technopat için donanım ve Linux yazıları yazdı.`
       ),
     };
   }

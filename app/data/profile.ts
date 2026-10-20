@@ -107,13 +107,13 @@ export const TIMELINE: TimelineEntry[] = [
   {
     id: 'invisible',
     company: 'Invisible Technologies',
-    role: 'AI Model Trainer, Google Gemini',
+    role: 'AI Model Trainer',
     tag: 'INVISIBLE TECHNOLOGIES // AI MODEL TRAINER',
     period: '2026 – Present',
     status: 'ACTIVE',
     content:
-      'Develop and train Google Gemini models through Meridial, Invisible Technologies\' expert network, contributing human expertise to the data and evaluation work that shapes how those models understand and respond to people.',
-    metrics: ['Google Gemini', 'Model Development', 'Model Training'],
+      'Develop and train AI models through Meridial, Invisible Technologies\' expert network, contributing human expertise to the data and evaluation work that shapes how those models understand and respond to people.',
+    metrics: ['AI Models', 'Model Development', 'Model Training'],
     layout: 'stack',
     media: [
       { label: 'PUBLIC INTERFACE // MERIDIAL_BY_INVISIBLE', src: '/meridial-invisible-homepage.png', alt: 'Meridial by Invisible homepage', href: 'https://www.meridial.ai/' },
@@ -435,7 +435,7 @@ export const CV_SECTIONS: { category: string; entries: CvEntry[] }[] = [
   {
     category: 'EXPERIENCE',
     entries: [
-      { label: 'Invisible Technologies', value: 'AI Model Trainer, Google Gemini (2026–Present)' },
+      { label: 'Invisible Technologies', value: 'AI Model Trainer (2026–Present)' },
       { label: 'Alignerr', value: 'Audio Transcriptionist (2026–Present)' },
       { label: 'Outlier', value: 'Project Administrator (2024–Present)' },
       { label: 'Outlier', value: 'AI Language Model Trainer (2024–Present)' },
